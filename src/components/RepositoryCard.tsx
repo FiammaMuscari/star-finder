@@ -5,18 +5,25 @@ export const RepositoryCard: React.FC<{ repo: Repository }> = ({ repo }) => {
   return (
     <div className="p-6 bg-white rounded-lg border hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start">
-        <div>
-          <h3 className="text-xl font-semibold">
-            <a
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              {repo.name}
-            </a>
-          </h3>
-          <p className="text-gray-600 mt-2">{repo.description}</p>
+        <div className="flex items-center gap-4">
+          <img
+            src={repo.owner.avatar_url}
+            alt={"avatar"}
+            className="w-12 h-12 rounded-full object-cover border"
+          />
+          <div>
+            <h3 className="text-xl font-semibold">
+              <a
+                href={repo.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                {repo.name}
+              </a>
+            </h3>
+            <p className="text-gray-600 mt-2">{repo.description}</p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1 text-black">

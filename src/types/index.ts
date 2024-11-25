@@ -7,6 +7,9 @@ export type Repository = {
   description: string;
   created_at: string;
   pushed_at: string;
+  owner: {
+    avatar_url: string;
+  };
 };
 
 export type FilterState = {
