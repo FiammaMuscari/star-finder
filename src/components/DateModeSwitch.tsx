@@ -10,7 +10,7 @@ const DateModeSwitch: React.FC<DateModeSwitchProps> = ({
   onToggle,
 }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center m-4">
       <span className="mr-2 text-sm">Created</span>
       <label className="relative inline-flex items-center cursor-pointer">
         <input

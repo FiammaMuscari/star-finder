@@ -19,3 +19,16 @@ export const TIME_RANGES = [
   { label: "1 year", value: "365d" },
   { label: "Since GitHub", value: "since_github" },
 ] as const;
+
+export const LANGUAGE_COLORS: Record<string, string> = {
+  TypeScript: "bg-blue-500 border-blue-500 text-blue-500",
+  JavaScript: "bg-yellow-400 border-yellow-400 text-yellow-400",
+  Python: "bg-blue-300 border-blue-300 text-blue-300",
+  Java: "bg-red-600 border-red-600 text-red-600",
+  Go: "bg-cyan-500 border-cyan-500 text-cyan-500",
+  Rust: "bg-orange-600 border-orange-600 text-orange-600",
+  "C++": "bg-purple-600 border-purple-600 text-purple-600",
+  "C#": "bg-green-600 border-green-600 text-green-600",
+  PHP: "bg-indigo-400 border-indigo-400 text-indigo-400",
+  Ruby: "bg-pink-600 border-pink-600 text-pink-600",
+};
