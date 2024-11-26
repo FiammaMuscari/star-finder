@@ -7,13 +7,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onSearch,
 }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex justify-center items-center w-full max-w-md mx-auto">
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search repositories..."
-        className="border border-gray-300 rounded-lg p-2 flex-grow"
+        className="border border-gray-300 rounded-lg p-2 flex-grow max-w-full"
       />
       <button
         onClick={onSearch}

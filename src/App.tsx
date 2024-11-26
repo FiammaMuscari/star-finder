@@ -5,6 +5,8 @@ import { TimeRangeFilter } from "./components/TimeRangeFilter";
 import { RepositoryList } from "./components/RepositoryList";
 import { useGithubSearch } from "./hooks/useGithubSearch";
 import type { FilterState } from "./types";
+import { BgEffect } from "./components/ParticlesBackground";
+import ScrollToTopButton from "./components/ScrollToTopButton"; // Importa el botón
 
 const App: React.FC = () => {
   const [filterState, setFilterState] = useState<FilterState>({
@@ -49,24 +51,31 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <SearchBar
-        value={filterState.searchQuery}
-        onChange={handleSearchChange}
-        onSearch={handleSearchSubmit}
-      />
-      <LanguageFilter
-        selectedLanguage={filterState.language}
-        onLanguageChange={handleLanguageChange}
-      />
-      <TimeRangeFilter
-        selectedRange={filterState.timeRange}
-        filterMode={filterState.filterMode}
-        onRangeSelect={handleRangeSelect}
-        onModeToggle={handleModeToggle}
-      />
+    <div className="relative z-10 p-4 flex flex-col w-full justify-center">
+      {/* Fondo de partículas */}
+      <BgEffect />
+
+      {/* Contenido principal */}
+      <section className="w-full flex flex-col m-auto justify-center z-20">
+        <SearchBar
+          value={filterState.searchQuery}
+          onChange={handleSearchChange}
+          onSearch={handleSearchSubmit}
+        />
+        <LanguageFilter
+          selectedLanguage={filterState.language}
+          onLanguageChange={handleLanguageChange}
+        />
+        <TimeRangeFilter
+          selectedRange={filterState.timeRange}
+          filterMode={filterState.filterMode}
+          onRangeSelect={handleRangeSelect}
+          onModeToggle={handleModeToggle}
+        />
+      </section>
       <RepositoryList repositories={repositories} loading={loading} />
       {error && <div className="text-red-500">{error}</div>}
+      <ScrollToTopButton />
     </div>
   );
 };

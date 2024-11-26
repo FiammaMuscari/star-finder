@@ -7,7 +7,7 @@ export const LanguageFilter: React.FC<LanguageFilterProps> = ({
   onLanguageChange,
 }) => {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap justify-center max-w-4xl m-auto rounded-md my-4 bg-[#434343a2] w-full gap-2">
       {LANGUAGES.map((lang) => {
         const isSelected = selectedLanguage === lang;
 
@@ -15,7 +15,7 @@ export const LanguageFilter: React.FC<LanguageFilterProps> = ({
           <button
             key={lang}
             onClick={() => onLanguageChange(lang)}
-            className={`px-4 py-2 my-4 rounded-full border transition-all
+            className={`px-4 py-2 my-4 rounded-full border-2 transition-all
               ${LANGUAGE_COLORS[lang]} 
               ${isSelected ? "bg-opacity-40" : "bg-opacity-10"}
             `}

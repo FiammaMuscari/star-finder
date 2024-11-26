@@ -32,3 +32,4 @@ export const LANGUAGE_COLORS: Record<string, string> = {
   PHP: "bg-indigo-400 border-indigo-400 text-indigo-400",
   Ruby: "bg-pink-600 border-pink-600 text-pink-600",
 };
+export const UI_BACKGROUND_ANIMATION = true;

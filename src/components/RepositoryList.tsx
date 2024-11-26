@@ -1,8 +1,11 @@
-import React from 'react';
-import { RepositoryCard } from './RepositoryCard';
-import type { RepositoryListProps } from '../types';
+import React from "react";
+import { RepositoryCard } from "./RepositoryCard";
+import type { RepositoryListProps } from "../types";
 
-export const RepositoryList: React.FC<RepositoryListProps> = ({ repositories, loading }) => {
+export const RepositoryList: React.FC<RepositoryListProps> = ({
+  repositories,
+  loading,
+}) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
@@ -12,7 +15,7 @@ export const RepositoryList: React.FC<RepositoryListProps> = ({ repositories, lo
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-4 max-w-3xl m-auto z-20">
       {repositories.map((repo) => (
         <RepositoryCard key={repo.id} repo={repo} />
       ))}
