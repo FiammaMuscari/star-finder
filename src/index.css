@@ -47,7 +47,6 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
- 
 
 @media (prefers-color-scheme: light) {
   :root {

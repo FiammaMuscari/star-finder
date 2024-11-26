@@ -5,11 +5,10 @@ const ScrollToTopButton: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Mostrar el botón tan pronto como se haga scroll hacia abajo
       if (window.scrollY > 0) {
-        setIsVisible(true); // Muestra el botón cuando se hace scroll
+        setIsVisible(true);
       } else {
-        setIsVisible(false); // Oculta el botón cuando está en la parte superior
+        setIsVisible(false);
       }
     };
 
@@ -23,11 +22,11 @@ const ScrollToTopButton: React.FC = () => {
   const handleClick = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // Agrega desplazamiento suave
+      behavior: "smooth",
     });
   };
 
-  if (!isVisible) return null; // No renderiza el botón si no es visible
+  if (!isVisible) return null;
 
   return (
     <button

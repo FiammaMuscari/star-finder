@@ -52,11 +52,17 @@ const App: React.FC = () => {
 
   return (
     <div className="relative z-10 p-4 flex flex-col w-full justify-center">
-      {/* Fondo de partículas */}
       <BgEffect />
 
-      {/* Contenido principal */}
       <section className="w-full flex flex-col m-auto justify-center z-20">
+        <div className="relative flex justify-center items-center mb-6">
+          <div className="absolute bg-white opacity-30 rounded-full w-40 h-40 z-20 animate-pulseVibration"></div>
+          <img
+            src="/octocat.png"
+            alt="octocat"
+            className="h-40 w-45 p-4 flex m-auto relative z-40"
+          />
+        </div>
         <SearchBar
           value={filterState.searchQuery}
           onChange={handleSearchChange}

@@ -8,8 +8,9 @@ export const RepositoryList: React.FC<RepositoryListProps> = ({
 }) => {
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent" />
+      <div className="flex flex-col  justify-center items-center min-h-[200px] z-20">
+        <img src="/octo-loading.gif" alt="octocat-runing" className="w-20" />
+        <div className="animate-spin rounded-full ml-4 mt-2 h-8 w-8 border-4 border-gray-500 border-t-transparent" />
       </div>
     );
   }
