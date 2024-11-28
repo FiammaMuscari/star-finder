@@ -6,12 +6,18 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onChange,
   onSearch,
 }) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSearch();
+    }
+  };
   return (
     <div className="flex justify-center items-center w-full max-w-md mx-auto">
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder="Search repositories..."
         className="border border-gray-300 rounded-lg p-2 flex-grow max-w-full"
       />

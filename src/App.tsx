@@ -6,7 +6,7 @@ import { RepositoryList } from "./components/RepositoryList";
 import { useGithubSearch } from "./hooks/useGithubSearch";
 import type { FilterState } from "./types";
 import { BgEffect } from "./components/ParticlesBackground";
-import ScrollToTopButton from "./components/ScrollToTopButton"; // Importa el botón
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 const App: React.FC = () => {
   const [filterState, setFilterState] = useState<FilterState>({
@@ -15,56 +15,55 @@ const App: React.FC = () => {
     filterMode: "created",
     searchQuery: "",
   });
-
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const { repositories, loading, error } = useGithubSearch(filterState);
 
   const handleLanguageChange = (language: string) => {
-    setFilterState({
-      ...filterState,
+    setFilterState((prev) => ({
+      ...prev,
       language,
-    });
+    }));
   };
 
   const handleRangeSelect = (range: string) => {
-    setFilterState({
-      ...filterState,
+    setFilterState((prev) => ({
+      ...prev,
       timeRange: range,
-    });
+    }));
   };
 
   const handleModeToggle = () => {
-    setFilterState({
-      ...filterState,
-      filterMode: filterState.filterMode === "created" ? "updated" : "created",
-    });
+    setFilterState((prev) => ({
+      ...prev,
+      filterMode: prev.filterMode === "created" ? "updated" : "created",
+    }));
   };
 
   const handleSearchChange = (query: string) => {
-    setFilterState({
-      ...filterState,
-      searchQuery: query,
-    });
+    setSearchQuery(query);
   };
 
   const handleSearchSubmit = () => {
-    setFilterState({ ...filterState });
+    setFilterState((prev) => ({
+      ...prev,
+      searchQuery: searchQuery,
+    }));
   };
-
   return (
-    <div className="relative z-10 p-4 flex flex-col w-full justify-center">
+    <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
       <BgEffect />
 
       <section className="w-full flex flex-col m-auto justify-center z-20">
         <div className="relative flex justify-center items-center mb-6">
-          <div className="absolute bg-white opacity-30 rounded-full w-40 h-40 z-20 animate-pulseVibration"></div>
+          <div className="absolute bg-white opacity-30 rounded-full w-24 h-24 sm:w-40 sm:h-40 z-20 animate-pulseVibration"></div>
           <img
             src="/octocat.png"
             alt="octocat"
-            className="h-40 w-45 p-4 flex m-auto relative z-40"
+            className="h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40"
           />
         </div>
         <SearchBar
-          value={filterState.searchQuery}
+          value={searchQuery}
           onChange={handleSearchChange}
           onSearch={handleSearchSubmit}
         />
