@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { SearchBar } from "./components/SearchBar";
 import { LanguageFilter } from "./components/LanguageFilter";
 import { TimeRangeFilter } from "./components/TimeRangeFilter";
@@ -18,37 +18,37 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { repositories, loading, error } = useGithubSearch(filterState);
 
-  const handleLanguageChange = (language: string) => {
+  const handleLanguageChange = useCallback((language: string) => {
     setFilterState((prev) => ({
       ...prev,
       language,
     }));
-  };
+  }, []);
 
-  const handleRangeSelect = (range: string) => {
+  const handleRangeSelect = useCallback((range: string) => {
     setFilterState((prev) => ({
       ...prev,
       timeRange: range,
     }));
-  };
+  }, []);
 
-  const handleModeToggle = () => {
+  const handleModeToggle = useCallback(() => {
     setFilterState((prev) => ({
       ...prev,
       filterMode: prev.filterMode === "created" ? "updated" : "created",
     }));
-  };
+  }, []);
 
-  const handleSearchChange = (query: string) => {
+  const handleSearchChange = useCallback((query: string) => {
     setSearchQuery(query);
-  };
+  }, []);
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = useCallback(() => {
     setFilterState((prev) => ({
       ...prev,
       searchQuery: searchQuery,
     }));
-  };
+  }, [searchQuery]);
   return (
     <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
       <BgEffect />
