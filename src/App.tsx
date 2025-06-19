@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import { SearchBar } from "./components/SearchBar";
 import { LanguageFilter } from "./components/LanguageFilter";
 import { TimeRangeFilter } from "./components/TimeRangeFilter";
@@ -49,6 +49,57 @@ const App: React.FC = () => {
       searchQuery: searchQuery,
     }));
   }, [searchQuery]);
+
+  // Memoize the search bar props to prevent unnecessary re-renders
+  const searchBarProps = useMemo(
+    () => ({
+      value: searchQuery,
+      onChange: handleSearchChange,
+      onSearch: handleSearchSubmit,
+    }),
+    [searchQuery, handleSearchChange, handleSearchSubmit]
+  );
+
+  // Memoize the language filter props
+  const languageFilterProps = useMemo(
+    () => ({
+      selectedLanguage: filterState.language,
+      onLanguageChange: handleLanguageChange,
+    }),
+    [filterState.language, handleLanguageChange]
+  );
+
+  // Memoize the time range filter props
+  const timeRangeFilterProps = useMemo(
+    () => ({
+      selectedRange: filterState.timeRange,
+      filterMode: filterState.filterMode,
+      onRangeSelect: handleRangeSelect,
+      onModeToggle: handleModeToggle,
+    }),
+    [
+      filterState.timeRange,
+      filterState.filterMode,
+      handleRangeSelect,
+      handleModeToggle,
+    ]
+  );
+
+  // Memoize the repository list props
+  const repositoryListProps = useMemo(
+    () => ({
+      repositories,
+      loading,
+    }),
+    [repositories, loading]
+  );
+
+  // Memoize the error display
+  const errorDisplay = useMemo(() => {
+    if (!error) return null;
+    return <div className="text-red-500">{error}</div>;
+  }, [error]);
+
   return (
     <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
       <BgEffect />
@@ -62,24 +113,12 @@ const App: React.FC = () => {
             className="h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40"
           />
         </div>
-        <SearchBar
-          value={searchQuery}
-          onChange={handleSearchChange}
-          onSearch={handleSearchSubmit}
-        />
-        <LanguageFilter
-          selectedLanguage={filterState.language}
-          onLanguageChange={handleLanguageChange}
-        />
-        <TimeRangeFilter
-          selectedRange={filterState.timeRange}
-          filterMode={filterState.filterMode}
-          onRangeSelect={handleRangeSelect}
-          onModeToggle={handleModeToggle}
-        />
+        <SearchBar {...searchBarProps} />
+        <LanguageFilter {...languageFilterProps} />
+        <TimeRangeFilter {...timeRangeFilterProps} />
       </section>
-      <RepositoryList repositories={repositories} loading={loading} />
-      {error && <div className="text-red-500">{error}</div>}
+      <RepositoryList {...repositoryListProps} />
+      {errorDisplay}
       <ScrollToTopButton />
     </div>
   );
