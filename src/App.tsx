@@ -1,22 +1,34 @@
 import React, { useCallback, useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { SearchBar } from "./components/SearchBar";
 import { LanguageFilter } from "./components/LanguageFilter";
 import { TimeRangeFilter } from "./components/TimeRangeFilter";
 import { RepositoryList } from "./components/RepositoryList";
+import { Header } from "./components/Header";
 import { useGithubSearch } from "./hooks/useGithubSearch";
 import type { FilterState } from "./types";
 import { BgEffect } from "./components/ParticlesBackground";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 
 const App: React.FC = () => {
+  // Move i18n to the top level
+  const { i18n } = useTranslation();
+
   const [filterState, setFilterState] = useState<FilterState>({
     language: "",
     timeRange: "30d",
     filterMode: "created",
     searchQuery: "",
   });
+
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { repositories, loading, error } = useGithubSearch(filterState);
+
+  // Language toggle handler
+  const toggleLanguage = useCallback(() => {
+    const newLang = i18n.language === "es" ? "en" : "es";
+    i18n.changeLanguage(newLang);
+  }, [i18n]);
 
   const handleLanguageChange = useCallback((language: string) => {
     setFilterState((prev) => ({
@@ -101,25 +113,32 @@ const App: React.FC = () => {
   }, [error]);
 
   return (
-    <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
+    <div className="relative min-h-screen">
       <BgEffect />
 
-      <section className="w-full flex flex-col m-auto justify-center z-20">
-        <div className="relative flex justify-center items-center mb-6">
-          <div className="absolute bg-white opacity-30 rounded-full w-24 h-24 sm:w-40 sm:h-40 z-20 animate-pulseVibration"></div>
-          <img
-            src="/octocat.png"
-            alt="octocat"
-            className="h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40"
-          />
-        </div>
-        <SearchBar {...searchBarProps} />
-        <LanguageFilter {...languageFilterProps} />
-        <TimeRangeFilter {...timeRangeFilterProps} />
-      </section>
-      <RepositoryList {...repositoryListProps} />
-      {errorDisplay}
-      <ScrollToTopButton />
+      <Header
+        currentLanguage={i18n.language}
+        onToggleLanguage={toggleLanguage}
+      />
+
+      <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
+        <section className="w-full flex flex-col m-auto justify-center z-20">
+          <div className="relative flex justify-center items-center mb-6">
+            <div className="absolute bg-white opacity-30 rounded-full w-24 h-24 sm:w-40 sm:h-40 z-20 animate-pulseVibration"></div>
+            <img
+              src="/octocat.png"
+              alt="octocat"
+              className="h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40"
+            />
+          </div>
+          <SearchBar {...searchBarProps} />
+          <LanguageFilter {...languageFilterProps} />
+          <TimeRangeFilter {...timeRangeFilterProps} />
+        </section>
+        <RepositoryList {...repositoryListProps} />
+        {errorDisplay}
+        <ScrollToTopButton />
+      </div>
     </div>
   );
 };

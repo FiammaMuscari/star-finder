@@ -1,0 +1,37 @@
+{
+  "search": {
+    "placeholder": "Buscar repositorios...",
+    "button": "Buscar",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "noResults": "No se encontraron repositorios"
+  },
+  "filters": {
+    "language": "Lenguaje",
+    "timeRange": "Rango de tiempo",
+    "created": "Creado",
+    "updated": "Actualizado",
+    "last7Days": "Últimos 7 días",
+    "last30Days": "Últimos 30 días",
+    "last90Days": "Últimos 90 días",
+    "lastYear": "Último año",
+    "sinceGithub": "Desde GitHub"
+  },
+  "repository": {
+    "stars": "estrellas",
+    "created": "Creado",
+    "updated": "Actualizado",
+    "language": "Lenguaje"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "scrollToTop": "Ir arriba"
+  },
+  "error": {
+    "title": "Algo salió mal",
+    "message": "Ocurrió un error inesperado. Por favor, intenta refrescar la página.",
+    "refresh": "Refrescar Página",
+    "showDetails": "Mostrar Detalles del Error"
+  }
+}

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -53,4 +55,8 @@ button {
     color: #213547;
     background-color: #ffffff;
   }
+}
+
+.font-pacifico {
+  font-family: "Pacifico", cursive;
 }

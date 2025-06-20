@@ -1,15 +1,15 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import "./index.css";
+import "./i18n";
 import App from "./App.tsx";
-
 // Import why-did-you-render in development
-if (import.meta.env.DEV) {
-  import("./wdyr.ts");
-}
+// if (import.meta.env.DEV) {
+//   import("./wdyr.ts");
+// }
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>
+  </React.StrictMode>
 );
