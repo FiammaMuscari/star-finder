@@ -124,17 +124,17 @@ const App: React.FC = () => {
 
       <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
         <section className="w-full flex flex-col m-auto justify-center z-20">
-          <div className="relative flex justify-center items-center mb-6">
+          <div className="relative grid place-items-center mb-6">
             <div className="absolute bg-white opacity-30 rounded-full w-24 h-24 sm:w-40 sm:h-40 z-20 animate-pulseVibration"></div>
             {!imageLoaded && (
-              <div className="h-24 w-24 sm:h-40 sm:w-40 flex items-center justify-center relative z-40">
+              <div className="h-24 w-24 sm:h-40 sm:w-40 flex items-center justify-center relative z-30 col-start-1 row-start-1">
                 <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-white"></div>
               </div>
             )}
             <img
               src="/octocat.png"
               alt="octocat"
-              className={`h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40 transition-opacity duration-300 ${
+              className={`h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40 transition-opacity duration-300 col-start-1 row-start-1 ${
                 imageLoaded ? "opacity-100" : "opacity-0"
               }`}
               onLoad={() => setImageLoaded(true)}
