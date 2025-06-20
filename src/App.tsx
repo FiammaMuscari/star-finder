@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { SearchBar } from "./components/SearchBar";
 import { LanguageFilter } from "./components/LanguageFilter";
 import { TimeRangeFilter } from "./components/TimeRangeFilter";
@@ -9,10 +8,10 @@ import { useGithubSearch } from "./hooks/useGithubSearch";
 import type { FilterState } from "./types";
 import { BgEffect } from "./components/ParticlesBackground";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import { LanguageToggle } from "./components/LanguageToggle";
 
 const App: React.FC = () => {
   // Move i18n to the top level
-  const { i18n } = useTranslation();
 
   const [filterState, setFilterState] = useState<FilterState>({
     language: "",
@@ -24,12 +23,6 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const { repositories, loading, error } = useGithubSearch(filterState);
-
-  // Language toggle handler
-  const toggleLanguage = useCallback(() => {
-    const newLang = i18n.language === "es" ? "en" : "es";
-    i18n.changeLanguage(newLang);
-  }, [i18n]);
 
   const handleLanguageChange = useCallback((language: string) => {
     setFilterState((prev) => ({
@@ -114,14 +107,10 @@ const App: React.FC = () => {
   }, [error]);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen flex flex-col bg-gradient-to-b from-[#1a1a1a] to-[#232526]">
+      <LanguageToggle />
       <BgEffect />
-
-      <Header
-        currentLanguage={i18n.language}
-        onToggleLanguage={toggleLanguage}
-      />
-
+      <Header />
       <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
         <section className="w-full flex flex-col m-auto justify-center z-20">
           <div className="relative grid place-items-center mb-6">
@@ -150,7 +139,15 @@ const App: React.FC = () => {
       </div>
 
       <footer className="relative z-10 text-center py-4 text-white/70 text-sm">
-        Powered by Fiamy {new Date().getFullYear()}
+        Powered by{" "}
+        <a
+          href="https://github.com/FiammaMuscari"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-white transition-colors"
+        >
+          Fiamy
+        </a>
       </footer>
     </div>
   );

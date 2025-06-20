@@ -1,7 +1,9 @@
 import React from "react";
 import type { Repository } from "../types";
+import { useTranslation } from "react-i18next";
 
 export const RepositoryCard: React.FC<{ repo: Repository }> = ({ repo }) => {
+  const { t } = useTranslation();
   return (
     <div className="p-4 sm:p-6 bg-white rounded-lg border hover:shadow-lg transition-shadow">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
@@ -40,8 +42,13 @@ export const RepositoryCard: React.FC<{ repo: Repository }> = ({ repo }) => {
       {/* Additional Info */}
       <div className="mt-4 flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
         {repo.language && <span>{repo.language}</span>}
-        <span>Created: {new Date(repo.created_at).toLocaleDateString()}</span>
-        <span>Updated: {new Date(repo.pushed_at).toLocaleDateString()}</span>
+        <span>
+          {t("created")}
+          {new Date(repo.created_at).toLocaleDateString()}
+        </span>
+        <span>
+          {t("updated")} {new Date(repo.pushed_at).toLocaleDateString()}
+        </span>
       </div>
     </div>
   );
