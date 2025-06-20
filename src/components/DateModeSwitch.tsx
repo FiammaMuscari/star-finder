@@ -1,4 +1,4 @@
-import React, { useCallback, memo } from "react";
+import { useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 import type { DateModeSwitchProps } from "../types";
 
