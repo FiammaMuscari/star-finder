@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 export const LANGUAGES = [
   "TypeScript",
   "JavaScript",
@@ -32,4 +34,36 @@ export const LANGUAGE_COLORS: Record<string, string> = {
   PHP: "bg-indigo-400 border-indigo-400 text-indigo-400",
   Ruby: "bg-pink-600 border-pink-600 text-pink-600",
 };
+
 export const UI_BACKGROUND_ANIMATION = true;
+
+// Hook to get translated time ranges
+export const useTranslatedTimeRanges = () => {
+  const { t } = useTranslation();
+
+  return TIME_RANGES.map((range) => ({
+    ...range,
+    label: getTranslatedTimeLabel(range.value, t),
+  }));
+};
+
+// Helper function to get translated labels
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getTranslatedTimeLabel = (value: string, t: any) => {
+  switch (value) {
+    case "7d":
+      return `1 ${t("week")}`;
+    case "30d":
+      return `1 ${t("month")}`;
+    case "90d":
+      return `3 ${t("months")}`;
+    case "180d":
+      return `6 ${t("months")}`;
+    case "365d":
+      return `1 ${t("year")}`;
+    case "since_github":
+      return t("sinceGithub");
+    default:
+      return value;
+  }
+};

@@ -37,6 +37,11 @@ export type TimeRangeFilterProps = {
   onModeToggle: () => void;
 };
 
+export type DateModeSwitchProps = {
+  filterMode: "created" | "updated";
+  onToggle: () => void;
+};
+
 export type RepositoryListProps = {
   repositories: Repository[];
   loading: boolean;

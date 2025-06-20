@@ -17,6 +17,11 @@ const resources = {
       forks: "forks",
       lastUpdated: "Last updated",
       viewOnGithub: "View on GitHub",
+      week: "week",
+      month: "month",
+      months: "months",
+      year: "year",
+      sinceGithub: "Since GitHub",
       // Agrega más traducciones según necesites
     },
   },
@@ -35,6 +40,11 @@ const resources = {
       forks: "forks",
       lastUpdated: "Última actualización",
       viewOnGithub: "Ver en GitHub",
+      week: "semana",
+      month: "mes",
+      months: "meses",
+      year: "año",
+      sinceGithub: "Desde GitHub",
       // Agrega más traducciones según necesites
     },
   },
