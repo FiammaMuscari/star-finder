@@ -138,7 +138,7 @@ const App: React.FC = () => {
         <ScrollToTopButton />
       </div>
 
-      <footer className="relative z-10 text-center py-4 text-white/70 text-sm">
+      <footer className="relative z-10 gap-2 text-center py-4 text-white/70 text-sm">
         Powered by{" "}
         <a
           href="https://github.com/FiammaMuscari"
@@ -146,6 +146,7 @@ const App: React.FC = () => {
           rel="noopener noreferrer"
           className="underline hover:text-white transition-colors"
         >
+          {" "}
           Fiamy
         </a>
       </footer>

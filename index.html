@@ -7,61 +7,138 @@
     <meta name="description" content="Star Finder App" />
     <meta name="google-adsense-account" content="ca-pub-9547387897781374" />
     <title>Star finder</title>
-    <!-- Google AdSense script, solo 1 vez en head -->
+    <!-- Google AdSense script -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9547387897781374"
       crossorigin="anonymous"
     ></script>
     <style>
-      /* #ads-banner { display: none; }  <-- Elimina o comenta esta línea */
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #root {
+        min-height: calc(
+          100vh - 60px
+        ); /* 60px es la altura del footer pequeño */
+        box-sizing: border-box;
+      }
+
+      #ads-footer {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+        background: white;
+      }
+
+      /* Contenedor del anuncio con posición relativa */
+      .ad-container {
+        position: relative;
+        display: block;
+
+        height: 60px;
+      }
+
+      /* Botón de cierre posicionado dentro del contenedor del anuncio */
+      #close-ad {
+        position: absolute;
+        top: 3px;
+        left: 300px;
+        z-index: 101;
+        background: none;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        cursor: pointer;
+        color: rgb(0, 0, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      /* Estilos para el anuncio responsive */
+      .adsbygoogle {
+        display: block;
+        width: 100%;
+        height: 60px;
+      }
+
+      /* Responsive para dispositivos móviles */
+      @media (max-width: 768px) {
+        .ad-container {
+          width: 100%;
+          height: 40px;
+        }
+
+        footer {
+          height: 40px;
+        }
+
+        #root {
+          min-height: calc(100vh - 40px);
+        }
+
+        .adsbygoogle {
+          height: 40px;
+        }
+
+        #close-ad {
+          width: 14px;
+          height: 14px;
+          font-size: 9px;
+          top: 2px;
+          right: 2px;
+        }
+      }
     </style>
   </head>
   <body>
-    <!-- Barra de anuncio tipo notificación en la parte superior -->
-    <div
-      id="ads-banner"
-      style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        background: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      "
-    >
-      <button
-        id="close-ads-banner"
-        style="
-          position: absolute;
-          right: 8px;
-          top: 8px;
-          background: transparent;
-          border: none;
-          font-size: 20px;
-          cursor: pointer;
-        "
-      >
-        ✕
-      </button>
-      <ins
-        class="adsbygoogle"
-        style="display: block"
-        data-ad-client="ca-pub-9547387897781374"
-        data-ad-slot="4613777208"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-    </div>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      document.getElementById("close-ads-banner").onclick = function () {
-        document.getElementById("ads-banner").style.display = "none";
-      };
-    </script>
-    <!-- Ajusta el margen superior para que el contenido no quede oculto detrás del anuncio -->
-    <div id="root" style="margin-top: 60px"></div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <div id="ads-footer">
+      <div class="ad-container">
+        <!-- Botón para cerrar el anuncio -->
+        <button id="close-ad" title="Cerrar anuncio">✕</button>
+
+        <!-- Anuncio AdSense responsive -->
+        <ins
+          class="adsbygoogle"
+          data-ad-client="ca-pub-9547387897781374"
+          data-ad-slot="6310002251"
+          data-full-width-responsive="true"
+        >
+        </ins>
+      </div>
+
+      <script>
+        // Inicializar AdSense después de que se cargue el DOM
+        document.addEventListener("DOMContentLoaded", function () {
+          // Inicializar el anuncio
+          (adsbygoogle = window.adsbygoogle || []).push({});
+
+          // Script para ocultar el footer al hacer clic en el botón
+          document.getElementById("close-ad").onclick = function () {
+            document.getElementById("ads-footer").style.display = "none";
+            // Ajustar la altura del root cuando se cierra el anuncio
+            document.getElementById("root").style.minHeight = "100vh";
+          };
+        });
+      </script>
+    </div>
   </body>
 </html>
