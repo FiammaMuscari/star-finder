@@ -14,7 +14,7 @@ export const TimeRangeFilter: React.FC<TimeRangeFilterProps> = memo(
 
     return (
       <div className="flex flex-wrap justify-center gap-4 my-4">
-        <div className="flex gap-4 flex-wrap justify-center">
+        <div className="flex md:gap-4 gap-2 flex-wrap justify-center">
           {TIME_RANGES.map((range) => (
             <button
               key={range.value}
