@@ -45,4 +45,6 @@ export type DateModeSwitchProps = {
 export type RepositoryListProps = {
   repositories: Repository[];
   loading: boolean;
+  loadMore: () => void;
+  hasMore: boolean;
 };

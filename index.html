@@ -45,29 +45,36 @@
       /* Contenedor del anuncio con posición relativa */
       .ad-container {
         position: relative;
-        display: block;
-
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
         height: 60px;
       }
 
       /* Botón de cierre posicionado dentro del contenedor del anuncio */
       #close-ad {
         position: absolute;
-        top: 3px;
-        left: 300px;
+        top: 5px;
+        right: 15px;
         z-index: 101;
-        background: none;
-        border: none;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        font-size: 10px;
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
         cursor: pointer;
-        color: rgb(0, 0, 0);
+        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
         line-height: 1;
+        transition: all 0.2s ease;
+      }
+      #close-ad:hover {
+        background: rgba(0, 0, 0, 0.7);
       }
 
       /* Estilos para el anuncio responsive */
@@ -126,17 +133,18 @@
       </div>
 
       <script>
-        // Inicializar AdSense después de que se cargue el DOM
-        document.addEventListener("DOMContentLoaded", function () {
-          // Inicializar el anuncio
+        // Inicializar el anuncio inmediatamente (no requiere DOMContentLoaded si el DOM ya parseó el ins)
+        try {
           (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+          console.error("AdSense Error: ", e);
+        }
 
-          // Script para ocultar el footer al hacer clic en el botón
-          document.getElementById("close-ad").onclick = function () {
-            document.getElementById("ads-footer").style.display = "none";
-            // Ajustar la altura del root cuando se cierra el anuncio
-            document.getElementById("root").style.minHeight = "100vh";
-          };
+        // Script para ocultar el footer al hacer clic en el botón
+        document.getElementById("close-ad").addEventListener("click", function () {
+          document.getElementById("ads-footer").style.display = "none";
+          // Ajustar la altura del root cuando se cierra el anuncio
+          document.getElementById("root").style.minHeight = "100vh";
         });
       </script>
     </div>

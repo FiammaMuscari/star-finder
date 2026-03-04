@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
-  const { repositories, loading, error } = useGithubSearch(filterState);
+  const { repositories, loading, error, loadMore, hasMore } = useGithubSearch(filterState);
 
   const handleLanguageChange = useCallback((language: string) => {
     setFilterState((prev) => ({
@@ -96,8 +96,10 @@ const App: React.FC = () => {
     () => ({
       repositories,
       loading,
+      loadMore,
+      hasMore,
     }),
-    [repositories, loading]
+    [repositories, loading, loadMore, hasMore]
   );
 
   // Memoize the error display
@@ -123,9 +125,8 @@ const App: React.FC = () => {
             <img
               src="/octocat.png"
               alt="octocat"
-              className={`h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40 transition-opacity duration-300 col-start-1 row-start-1 ${
-                imageLoaded ? "opacity-100" : "opacity-0"
-              }`}
+              className={`h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40 transition-opacity duration-300 col-start-1 row-start-1 ${imageLoaded ? "opacity-100" : "opacity-0"
+                }`}
               onLoad={() => setImageLoaded(true)}
             />
           </div>
