@@ -1,7 +1,8 @@
 import { defineConfig, loadEnv } from "vite";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  // Solo cargar las variables que empiecen con GITHUB_ en lugar de todas las variables del sistema ("")
+  const env = loadEnv(mode, process.cwd(), ["GITHUB_"]);
   return {
     server: {
       proxy: {
@@ -13,8 +14,8 @@ export default defineConfig(({ mode }) => {
           configure: (proxy: any, options: any) => {
             // @ts-ignore
             proxy.on("proxyReq", (proxyReq: any, req: any, res: any) => {
-              if (env.GITHUB_TOKEN || env.VITE_GITHUB_TOKEN) {
-                const token = env.GITHUB_TOKEN || env.VITE_GITHUB_TOKEN;
+              if (env.GITHUB_TOKEN) {
+                const token = env.GITHUB_TOKEN;
                 proxyReq.setHeader("Authorization", `Bearer ${token}`);
               }
             });
