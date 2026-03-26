@@ -122,7 +122,7 @@ const App: React.FC = () => {
           <section className="relative z-10 w-full px-0 py-6">
             <div className="relative mb-6 grid place-items-center">
               <div className="absolute h-24 w-24 rounded-full bg-cyan-200/25 blur-xl sm:h-40 sm:w-40" />
-              <div className="absolute z-20 h-24 w-24 animate-pulse rounded-full bg-white opacity-20 sm:h-40 sm:w-40" />
+              <div className="absolute z-20 h-24 w-24 rounded-full bg-white/10 sm:h-40 sm:w-40" />
               {!imageLoaded && (
                 <div className="relative z-30 col-start-1 row-start-1 flex h-24 w-24 items-center justify-center sm:h-40 sm:w-40">
                   <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-white sm:h-12 sm:w-12" />

@@ -54,7 +54,7 @@ const resources = {
       week: "semana",
       month: "mes",
       months: "meses",
-      year: "ano",
+      year: "año",
       sinceGithub: "Desde GitHub",
       discoverTitle: "Repositorios en tendencia",
       discoverSubtitle:

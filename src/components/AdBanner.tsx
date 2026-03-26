@@ -62,14 +62,14 @@ export function AdBanner() {
 
   return (
     <section className="relative z-10 mt-8 w-full">
-      <div className="overflow-hidden rounded-[28px] bg-slate-950/35 p-3">
+      <div className="overflow-hidden rounded-[28px] bg-slate-950/35 p-2 sm:p-3">
         {import.meta.env.DEV || loadError ? (
-          <div className="min-h-[90px] w-full rounded-2xl  " />
+          <div className="min-h-[64px] w-full rounded-2xl    sm:min-h-[90px]" />
         ) : (
           <ins
             ref={adRef}
-            className="adsbygoogle block min-h-[90px] w-full overflow-hidden rounded-2xl  "
-            style={{ display: "block" }}
+            className="adsbygoogle block min-h-[64px] w-full overflow-hidden rounded-2xl    sm:min-h-[90px]"
+            style={{ display: "block", backgroundColor: "rgba(15, 23, 42, 0.8)" }}
             data-ad-client={ADS_CLIENT}
             data-ad-slot={ADS_SLOT}
             data-ad-format="auto"
