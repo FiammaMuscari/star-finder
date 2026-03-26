@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import type { SearchBarProps } from "../types";
 
@@ -6,7 +6,6 @@ export const SearchBar: React.FC<SearchBarProps> = memo(
   ({ value, onChange, onSearch }) => {
     const { t } = useTranslation();
 
-    // Efecto para resetear cuando el campo esté vacío
     useEffect(() => {
       if (value.trim() === "") {
         onSearch();
@@ -29,23 +28,20 @@ export const SearchBar: React.FC<SearchBarProps> = memo(
       [onChange]
     );
 
-    const handleButtonClick = useCallback(() => {
-      onSearch();
-    }, [onSearch]);
-
     return (
-      <div className="relative flex w-full max-w-2xl mx-auto mb-6">
+      <div className="relative mx-auto mb-6 flex w-full max-w-3xl flex-col gap-3 sm:flex-row">
         <input
           type="text"
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder={t("search")}
-          className="w-full px-4 py-3 text-lg bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+          className="w-full min-w-0 flex-1 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-base text-white placeholder:text-slate-400 focus:border-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-300/40 sm:text-lg"
         />
         <button
-          onClick={handleButtonClick}
-          className="ml-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 transition-colors duration-200"
+          type="button"
+          onClick={onSearch}
+          className="w-full rounded-2xl bg-cyan-300 px-5 py-3 font-semibold text-slate-950 transition-colors duration-200 hover:bg-cyan-200 sm:w-auto"
         >
           {t("search.button")}
         </button>

@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 
 const ScrollToTopButton: React.FC = memo(() => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = useCallback(() => {
-    if (window.scrollY > 0) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
+    setIsVisible(window.scrollY > 300);
   }, []);
 
   useEffect(() => {
@@ -50,7 +46,7 @@ const ScrollToTopButton: React.FC = memo(() => {
   return (
     <button
       onClick={handleClick}
-      className="fixed p-8 bottom-6 right-6  bg-black text-white rounded-full shadow-lg transition-opacity duration-300 hover:opacity-80 z-20 flex items-center justify-center"
+      className="fixed bottom-5 right-4 z-30 flex items-center justify-center rounded-full bg-slate-950/85 p-4 text-white shadow-lg backdrop-blur transition-opacity duration-300 hover:opacity-80 sm:bottom-6 sm:right-6"
       aria-label="Scroll to top"
     >
       {buttonContent}

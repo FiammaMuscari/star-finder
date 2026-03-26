@@ -1,55 +1,66 @@
 import React from "react";
-import type { Repository } from "../types";
 import { useTranslation } from "react-i18next";
+import type { Repository } from "../types";
 
 export const RepositoryCard: React.FC<{ repo: Repository }> = ({ repo }) => {
   const { t } = useTranslation();
+
   return (
-    <div className="p-4 sm:p-6 bg-white rounded-lg border hover:shadow-lg transition-shadow">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-        {/* Avatar and Info */}
-        <div className="flex items-start gap-4">
+    <article className="h-full rounded-[28px] border border-slate-200/80 bg-white/95 p-4 text-left shadow-[0_18px_40px_rgba(15,23,42,0.18)] transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(14,165,233,0.22)] sm:p-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex min-w-0 items-start gap-4">
           <img
             src={repo.owner.avatar_url}
-            alt="avatar"
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border"
+            alt={`${repo.owner.login} avatar`}
+            className="h-11 w-11 shrink-0 rounded-2xl border border-slate-200 object-cover sm:h-12 sm:w-12"
           />
-          <div className="flex-1">
-            <h3 className="text-lg sm:text-xl font-semibold">
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              {repo.owner.login}
+            </p>
+            <h3 className="mt-1 text-lg font-semibold text-slate-900 sm:text-xl">
               <a
                 href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
+                className="break-words text-slate-900 transition-colors hover:text-cyan-700 [overflow-wrap:anywhere]"
               >
                 {repo.name}
               </a>
             </h3>
-            <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base line-clamp-2">
-              {repo.description}
+            <p className="mt-2 line-clamp-3 text-sm text-slate-600 sm:text-base [overflow-wrap:anywhere]">
+              {repo.description || t("repoDescriptionFallback")}
             </p>
           </div>
         </div>
 
-        {/* Stars */}
-        <div className="flex sm:justify-end items-center gap-2 text-sm sm:text-base">
-          <span className="whitespace-nowrap flex items-center gap-1 text-black">
-            ⭐️ {repo.stargazers_count.toLocaleString()}
-          </span>
+        <div className="flex shrink-0 items-center gap-2 rounded-full bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-900">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="h-4 w-4 text-amber-400"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.075 3.31a1 1 0 00.95.69h3.48c.969 0 1.371 1.24.588 1.81l-2.816 2.046a1 1 0 00-.364 1.118l1.076 3.31c.3.922-.755 1.688-1.54 1.118l-2.816-2.046a1 1 0 00-1.176 0l-2.816 2.046c-.784.57-1.838-.196-1.539-1.118l1.075-3.31a1 1 0 00-.364-1.118L2.456 8.737c-.783-.57-.38-1.81.588-1.81h3.48a1 1 0 00.95-.69l1.075-3.31z" />
+          </svg>
+          <span>{repo.stargazers_count.toLocaleString()}</span>
         </div>
       </div>
 
-      {/* Additional Info */}
-      <div className="mt-4 flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
-        {repo.language && <span>{repo.language}</span>}
-        <span>
+      <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-500 sm:text-sm">
+        {repo.language && (
+          <span className="rounded-full bg-cyan-50 px-3 py-1 font-medium text-cyan-700">
+            {repo.language}
+          </span>
+        )}
+        <span className="rounded-full bg-slate-100 px-3 py-1">
           {t("created")}
           {new Date(repo.created_at).toLocaleDateString()}
         </span>
-        <span>
+        <span className="rounded-full bg-slate-100 px-3 py-1">
           {t("updated")} {new Date(repo.pushed_at).toLocaleDateString()}
         </span>
       </div>
-    </div>
+    </article>
   );
 };

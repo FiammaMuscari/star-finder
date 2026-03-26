@@ -1,8 +1,10 @@
 export function Header() {
   return (
-    <header className="p-4 h-[80px] rounded-b-lg flex justify-between items-center z-10 sticky top-0 transition-all duration-300">
-      <div className="cursor-pointer absolute left-1/2 transform -translate-x-1/2 top-6 text-3xl text-white font-extrabold tracking-wide">
-        Star Finder
+    <header className="pointer-events-none relative z-0 -mb-6 pt-10 sm:-mb-10 sm:pt-6">
+      <div className="text-center">
+        <h1 className="text-5xl font-extrabold tracking-[0.18em] text-white/10 sm:text-7xl lg:text-8xl">
+          Star Finder
+        </h1>
       </div>
     </header>
   );

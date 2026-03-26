@@ -1,28 +1,27 @@
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
+import { Header } from "./components/Header";
 import { SearchBar } from "./components/SearchBar";
 import { LanguageFilter } from "./components/LanguageFilter";
 import { TimeRangeFilter } from "./components/TimeRangeFilter";
 import { RepositoryList } from "./components/RepositoryList";
-import { Header } from "./components/Header";
-import { useGithubSearch } from "./hooks/useGithubSearch";
-import type { FilterState } from "./types";
 import { BgEffect } from "./components/ParticlesBackground";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import { LanguageToggle } from "./components/LanguageToggle";
+import { AdBanner } from "./components/AdBanner";
+import { useGithubSearch } from "./hooks/useGithubSearch";
+import type { FilterState } from "./types";
 
 const App: React.FC = () => {
-  // Move i18n to the top level
-
   const [filterState, setFilterState] = useState<FilterState>({
     language: "",
     timeRange: "30d",
     filterMode: "created",
     searchQuery: "",
   });
-
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
-  const { repositories, loading, error, loadMore, hasMore } = useGithubSearch(filterState);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const { repositories, loading, error, loadMore, hasMore, totalCount } =
+    useGithubSearch(filterState);
 
   const handleLanguageChange = useCallback((language: string) => {
     setFilterState((prev) => ({
@@ -52,21 +51,19 @@ const App: React.FC = () => {
   const handleSearchSubmit = useCallback(() => {
     setFilterState((prev) => ({
       ...prev,
-      searchQuery: searchQuery,
+      searchQuery,
     }));
   }, [searchQuery]);
 
-  // Memoize the search bar props to prevent unnecessary re-renders
   const searchBarProps = useMemo(
     () => ({
       value: searchQuery,
       onChange: handleSearchChange,
       onSearch: handleSearchSubmit,
     }),
-    [searchQuery, handleSearchChange, handleSearchSubmit]
+    [handleSearchChange, handleSearchSubmit, searchQuery]
   );
 
-  // Memoize the language filter props
   const languageFilterProps = useMemo(
     () => ({
       selectedLanguage: filterState.language,
@@ -75,7 +72,6 @@ const App: React.FC = () => {
     [filterState.language, handleLanguageChange]
   );
 
-  // Memoize the time range filter props
   const timeRangeFilterProps = useMemo(
     () => ({
       selectedRange: filterState.timeRange,
@@ -84,73 +80,89 @@ const App: React.FC = () => {
       onModeToggle: handleModeToggle,
     }),
     [
-      filterState.timeRange,
       filterState.filterMode,
-      handleRangeSelect,
+      filterState.timeRange,
       handleModeToggle,
+      handleRangeSelect,
     ]
   );
 
-  // Memoize the repository list props
   const repositoryListProps = useMemo(
     () => ({
       repositories,
       loading,
       loadMore,
       hasMore,
+      totalCount,
     }),
-    [repositories, loading, loadMore, hasMore]
+    [repositories, loading, loadMore, hasMore, totalCount]
   );
 
-  // Memoize the error display
   const errorDisplay = useMemo(() => {
-    if (!error) return null;
-    return <div className="text-red-500">{error}</div>;
+    if (!error) {
+      return null;
+    }
+
+    return (
+      <div className="rounded-2xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+        {error}
+      </div>
+    );
   }, [error]);
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-gradient-to-b from-[#1a1a1a] to-[#232526]">
-      <LanguageToggle />
+    <div className="relative min-h-screen overflow-x-clip bg-[radial-gradient(circle_at_top,#133353_0%,#091320_42%,#050a13_100%)]">
       <BgEffect />
-      <Header />
-      <div className="relative z-10 p-2 sm:p-4 flex flex-col w-full justify-center">
-        <section className="w-full flex flex-col m-auto justify-center z-20">
-          <div className="relative grid place-items-center mb-6">
-            <div className="absolute bg-white opacity-30 rounded-full w-24 h-24 sm:w-40 sm:h-40 z-20 animate-pulseVibration"></div>
-            {!imageLoaded && (
-              <div className="h-24 w-24 sm:h-40 sm:w-40 flex items-center justify-center relative z-30 col-start-1 row-start-1">
-                <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-white"></div>
-              </div>
-            )}
-            <img
-              src="/octocat.png"
-              alt="octocat"
-              className={`h-24 w-24 sm:h-40 sm:w-40 p-2 sm:p-4 flex m-auto relative z-40 transition-opacity duration-300 col-start-1 row-start-1 ${imageLoaded ? "opacity-100" : "opacity-0"
+      <LanguageToggle />
+
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pb-8 sm:px-6 lg:px-8">
+        <Header />
+
+        <main className="relative flex flex-1 flex-col gap-8">
+          <section className="relative z-10 w-full px-0 py-6">
+            <div className="relative mb-6 grid place-items-center">
+              <div className="absolute h-24 w-24 rounded-full bg-cyan-200/25 blur-xl sm:h-40 sm:w-40" />
+              <div className="absolute z-20 h-24 w-24 animate-pulse rounded-full bg-white opacity-20 sm:h-40 sm:w-40" />
+              {!imageLoaded && (
+                <div className="relative z-30 col-start-1 row-start-1 flex h-24 w-24 items-center justify-center sm:h-40 sm:w-40">
+                  <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-white sm:h-12 sm:w-12" />
+                </div>
+              )}
+              <img
+                src="/octocat.png"
+                alt="octocat"
+                className={`relative z-40 col-start-1 row-start-1 m-auto flex h-24 w-24 p-2 transition-opacity duration-300 sm:h-40 sm:w-40 sm:p-4 ${
+                  imageLoaded ? "opacity-100" : "opacity-0"
                 }`}
-              onLoad={() => setImageLoaded(true)}
-            />
-          </div>
-          <SearchBar {...searchBarProps} />
-          <LanguageFilter {...languageFilterProps} />
-          <TimeRangeFilter {...timeRangeFilterProps} />
-        </section>
-        <RepositoryList {...repositoryListProps} />
-        {errorDisplay}
+                onLoad={() => setImageLoaded(true)}
+              />
+            </div>
+
+            <SearchBar {...searchBarProps} />
+            <LanguageFilter {...languageFilterProps} />
+            <TimeRangeFilter {...timeRangeFilterProps} />
+          </section>
+
+          {errorDisplay}
+          <RepositoryList {...repositoryListProps} />
+        </main>
+
+        <AdBanner />
+
+        <footer className="relative z-10 py-6 text-center text-sm text-white/70">
+          Powered by{" "}
+          <a
+            href="https://github.com/FiammaMuscari"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline transition-colors hover:text-white"
+          >
+            Fiamy
+          </a>
+        </footer>
+
         <ScrollToTopButton />
       </div>
-
-      <footer className="relative z-10 gap-2 text-center py-4 text-white/70 text-sm">
-        Powered by{" "}
-        <a
-          href="https://github.com/FiammaMuscari"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-white transition-colors"
-        >
-          {" "}
-          Fiamy
-        </a>
-      </footer>
     </div>
   );
 };

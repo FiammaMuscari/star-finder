@@ -1,7 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import type { Repository, FilterState } from "../types";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { FilterState, Repository } from "../types";
 
-const requestCache = new Map<string, any>();
+const PER_PAGE = 12;
+
+type SearchResponse = {
+  items?: Repository[];
+  total_count?: number;
+};
+
+const requestCache = new Map<string, SearchResponse>();
 
 export const useGithubSearch = (filterState: FilterState) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
@@ -9,10 +16,28 @@ export const useGithubSearch = (filterState: FilterState) => {
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
   const loadMorePending = useRef(false);
-  const currentFilter = useRef(filterState);
+  const filterKey = useMemo(() => JSON.stringify(filterState), [filterState]);
+  const previousFilterKey = useRef(filterKey);
 
   useEffect(() => {
+    const isNewFilter = previousFilterKey.current !== filterKey;
+
+    if (isNewFilter) {
+      previousFilterKey.current = filterKey;
+      loadMorePending.current = false;
+      setRepositories([]);
+      setHasMore(true);
+      setTotalCount(0);
+      setError(null);
+
+      if (page !== 1) {
+        setPage(1);
+        return;
+      }
+    }
+
     let active = true;
 
     const fetchRepositories = async () => {
@@ -20,29 +45,24 @@ export const useGithubSearch = (filterState: FilterState) => {
         setLoading(true);
         setError(null);
 
-        // Check if filter changed since last time, if so reset page implicitly for this request
-        const isNewSearch = currentFilter.current !== filterState;
-        const currentPage = isNewSearch ? 1 : page;
-        if (isNewSearch) {
-          currentFilter.current = filterState;
-          setPage(1);
-        }
-
         let dateFilter = "";
         if (filterState.timeRange) {
           if (filterState.timeRange === "since_github") {
-            dateFilter = `created:>2008-04-04`;
+            dateFilter = "created:>2008-04-04";
           } else {
-            dateFilter = `${filterState.filterMode === "created" ? "created" : "pushed"
-              }:>${new Date(Date.now() - parseInt(filterState.timeRange) * 86400000)
-                .toISOString()
-                .split("T")[0]
-              }`;
+            const days = Number.parseInt(filterState.timeRange, 10);
+            const boundaryDate = new Date(Date.now() - days * 86400000)
+              .toISOString()
+              .split("T")[0];
+
+            dateFilter = `${
+              filterState.filterMode === "created" ? "created" : "pushed"
+            }:>${boundaryDate}`;
           }
         }
 
         const queryParts = [
-          filterState.searchQuery ? filterState.searchQuery : "",
+          filterState.searchQuery || "",
           filterState.language ? `language:${filterState.language}` : "",
           dateFilter,
         ].filter(Boolean);
@@ -51,16 +71,15 @@ export const useGithubSearch = (filterState: FilterState) => {
           q: queryParts.join(" ") || "stars:>1",
           sort: "stars",
           order: "desc",
-          per_page: "12",
-          page: currentPage.toString(),
+          per_page: PER_PAGE.toString(),
+          page: (isNewFilter ? 1 : page).toString(),
         });
 
         const cacheKey = params.toString();
-        let data;
+        let data: SearchResponse;
 
         if (requestCache.has(cacheKey)) {
-          // Use cached data to save requests
-          data = requestCache.get(cacheKey);
+          data = requestCache.get(cacheKey) as SearchResponse;
         } else {
           const response = await fetch(`/api/search/repositories?${params}`);
 
@@ -69,17 +88,25 @@ export const useGithubSearch = (filterState: FilterState) => {
           }
 
           data = await response.json();
-          // Cache successful responses to save future requests
           requestCache.set(cacheKey, data);
         }
 
-        if (!active) return;
+        if (!active) {
+          return;
+        }
 
         const items = data.items || [];
-        setRepositories((prev) => (currentPage === 1 ? items : [...prev, ...items]));
-        setHasMore(items.length > 0);
+        const nextTotalCount = data.total_count ?? 0;
+        const nextPage = isNewFilter ? 1 : page;
+
+        setTotalCount(nextTotalCount);
+        setRepositories((prev) => (nextPage === 1 ? items : [...prev, ...items]));
+        setHasMore(nextPage * PER_PAGE < nextTotalCount && items.length === PER_PAGE);
       } catch (err) {
-        if (active) setError(err instanceof Error ? err.message : "An error occurred");
+        if (active) {
+          setError(err instanceof Error ? err.message : "An error occurred");
+          setHasMore(false);
+        }
       } finally {
         if (active) {
           setLoading(false);
@@ -88,28 +115,23 @@ export const useGithubSearch = (filterState: FilterState) => {
       }
     };
 
-    if (hasMore || currentFilter.current !== filterState) {
-      if (currentFilter.current !== filterState) {
-        setRepositories([]); // Clear instantly before fetch
-      }
-      fetchRepositories();
-    }
+    void fetchRepositories();
 
     return () => {
       active = false;
     };
-  }, [filterState, page]);
+  }, [filterKey, filterState, page]);
 
   useEffect(() => {
     loadMorePending.current = false;
   }, [repositories, error]);
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     if (!loading && hasMore && !loadMorePending.current) {
       loadMorePending.current = true;
       setPage((prev) => prev + 1);
     }
-  };
+  }, [hasMore, loading]);
 
-  return { repositories, loading, error, loadMore, hasMore };
+  return { repositories, loading, error, loadMore, hasMore, totalCount };
 };

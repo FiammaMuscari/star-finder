@@ -1,6 +1,6 @@
-import React, { useCallback, memo } from "react";
-import { useTranslatedTimeRanges } from "../constants";
+import React, { memo, useCallback } from "react";
 import type { TimeRangeFilterProps } from "../types";
+import { useTranslatedTimeRanges } from "../constants";
 import DateModeSwitch from "./DateModeSwitch";
 
 export const TimeRangeFilter: React.FC<TimeRangeFilterProps> = memo(
@@ -15,16 +15,17 @@ export const TimeRangeFilter: React.FC<TimeRangeFilterProps> = memo(
     );
 
     return (
-      <div className="flex flex-wrap justify-center gap-4 my-4">
-        <div className="flex md:gap-4 gap-2 flex-wrap justify-center">
+      <div className="my-4 flex flex-col items-center gap-4">
+        <div className="flex flex-wrap justify-center gap-2">
           {timeRanges.map((range) => (
             <button
               key={range.value}
+              type="button"
               onClick={() => handleRangeClick(range.value)}
-              className={`px-4 py-2 my-2 rounded-lg transition-colors ${
+              className={`rounded-2xl px-4 py-2 text-sm transition-colors ${
                 selectedRange === range.value
-                  ? "bg-purple-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  ? "bg-white text-slate-950"
+                  : "bg-slate-900/70 text-slate-200 hover:bg-slate-800"
               }`}
             >
               {range.label}

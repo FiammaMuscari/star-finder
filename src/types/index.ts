@@ -4,11 +4,12 @@ export type Repository = {
   stargazers_count: number;
   html_url: string;
   language: string;
-  description: string;
+  description: string | null;
   created_at: string;
   pushed_at: string;
   owner: {
     avatar_url: string;
+    login: string;
   };
 };
 
@@ -47,4 +48,5 @@ export type RepositoryListProps = {
   loading: boolean;
   loadMore: () => void;
   hasMore: boolean;
+  totalCount: number;
 };

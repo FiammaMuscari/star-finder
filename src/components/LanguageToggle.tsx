@@ -14,7 +14,7 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
 
   const toggleLanguage = useCallback(() => {
     const newLang = i18n.language === "es" ? "en" : "es";
-    i18n.changeLanguage(newLang);
+    void i18n.changeLanguage(newLang);
 
     if (onClick) {
       onClick();
@@ -25,7 +25,7 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
     <button
       type="button"
       onClick={toggleLanguage}
-      className={`fixed top-4 left-4 z-50  bg-transparent    text-white px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium backdrop-blur-sm ${className}`}
+      className={`fixed left-4 top-4 z-50 rounded-full border border-white/10 bg-slate-950/55 px-3 py-2 text-sm font-medium text-white transition-all duration-200 backdrop-blur-md ${className}`}
       aria-label="Toggle language between Spanish and English"
     >
       {i18n.language === "es" ? "ES" : "EN"}

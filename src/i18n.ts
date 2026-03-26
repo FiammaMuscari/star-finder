@@ -22,7 +22,18 @@ const resources = {
       months: "months",
       year: "year",
       sinceGithub: "Since GitHub",
-      // Agrega más traducciones según necesites
+      discoverTitle: "Trending repositories",
+      discoverSubtitle:
+        "Browse popular projects without getting trapped in endless scrolling.",
+      showingResults: "{{shown}} of {{total}} repositories",
+      loadMore: "Load more repositories",
+      endOfResults: "You reached the end. The footer is right below.",
+      repoDescriptionFallback:
+        "This repository does not include a description yet.",
+      adPreview: "Ad preview",
+      adInfo:
+        "If this area stays empty in production, the most common causes are ad blockers, an unapproved domain, or AdSense not serving on localhost.",
+      sponsored: "Sponsored",
     },
   },
   es: {
@@ -34,25 +45,36 @@ const resources = {
       created: "Creado ",
       updated: "Actualizado",
       loading: "Cargando...",
-      error: "Ocurrió un error",
+      error: "Ocurrio un error",
       noResults: "No se encontraron repositorios",
       stars: "estrellas",
       forks: "forks",
-      lastUpdated: "Última actualización",
+      lastUpdated: "Ultima actualizacion",
       viewOnGithub: "Ver en GitHub",
       week: "semana",
       month: "mes",
       months: "meses",
-      year: "año",
+      year: "ano",
       sinceGithub: "Desde GitHub",
-      // Agrega más traducciones según necesites
+      discoverTitle: "Repositorios en tendencia",
+      discoverSubtitle:
+        "Explora proyectos populares sin quedar atrapado en un scroll infinito.",
+      showingResults: "{{shown}} de {{total}} repositorios",
+      loadMore: "Cargar mas repositorios",
+      endOfResults: "Llegaste al final. El footer esta justo abajo.",
+      repoDescriptionFallback:
+        "Este repositorio todavia no tiene descripcion.",
+      adPreview: "Vista previa del anuncio",
+      adInfo:
+        "Si este espacio sigue vacio en produccion, lo mas comun es un bloqueador, un dominio sin aprobar o que AdSense no sirva anuncios en localhost.",
+      sponsored: "Patrocinado",
     },
   },
 };
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: "es", // idioma por defecto
+  lng: "es",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,
