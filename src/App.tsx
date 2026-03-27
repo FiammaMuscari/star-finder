@@ -8,10 +8,14 @@ import { BgEffect } from "./components/ParticlesBackground";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import { LanguageToggle } from "./components/LanguageToggle";
 import { AdBanner } from "./components/AdBanner";
+import { TrendingPreviewSection } from "./components/TrendingPreviewSection";
 import { useGithubSearch } from "./hooks/useGithubSearch";
+import { usePageMeta } from "./hooks/usePageMeta";
 import type { FilterState } from "./types";
+import { useTranslation } from "react-i18next";
 
 const App: React.FC = () => {
+  const { t } = useTranslation();
   const [filterState, setFilterState] = useState<FilterState>({
     language: "",
     timeRange: "30d",
@@ -22,6 +26,12 @@ const App: React.FC = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { repositories, loading, error, loadMore, hasMore, totalCount } =
     useGithubSearch(filterState);
+
+  usePageMeta({
+    title: "Star Finder | Discover trending GitHub repositories",
+    description:
+      "Star Finder helps developers discover trending GitHub repositories by language, recency, and activity without endless scrolling.",
+  });
 
   const handleLanguageChange = useCallback((language: string) => {
     setFilterState((prev) => ({
@@ -143,6 +153,7 @@ const App: React.FC = () => {
             <TimeRangeFilter {...timeRangeFilterProps} />
           </section>
 
+          <TrendingPreviewSection />
           {errorDisplay}
           <RepositoryList {...repositoryListProps} />
         </main>
@@ -150,7 +161,7 @@ const App: React.FC = () => {
         <AdBanner />
 
         <footer className="relative z-10 py-6 text-center text-sm text-white/70">
-          Powered by{" "}
+          {t("poweredBy")}{" "}
           <a
             href="https://github.com/FiammaMuscari"
             target="_blank"

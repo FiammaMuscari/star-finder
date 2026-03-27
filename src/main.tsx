@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import "./i18n";
-import App from "./App.tsx";
-// Import why-did-you-render in development
-// if (import.meta.env.DEV) {
-//   import("./wdyr.ts");
-// }
+import { router } from "./router.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

@@ -13,6 +13,28 @@ export type Repository = {
   };
 };
 
+export type TrendingPeriod = "today" | "week" | "month";
+
+export type TrendingRepository = {
+  repo_full_name: string;
+  stars: number;
+  growth: number | null;
+  description?: string | null;
+  language?: string | null;
+  captured_at: string;
+};
+
+export type PeriodAvailability = Record<TrendingPeriod, boolean>;
+
+export type TrendingResponse = {
+  period: TrendingPeriod;
+  days: number;
+  ready: boolean;
+  message: string | null;
+  periodAvailability: PeriodAvailability;
+  items: TrendingRepository[];
+};
+
 export type FilterState = {
   language: string;
   timeRange: string;

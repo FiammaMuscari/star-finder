@@ -1,6 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { LANGUAGE_COLORS } from "../constants";
 import type { Repository } from "../types";
+
+function getLanguageTagClass(language: string | null | undefined) {
+  if (!language || !LANGUAGE_COLORS[language]) {
+    return "border border-slate-200 bg-slate-100 text-slate-700";
+  }
+
+  return `border ${LANGUAGE_COLORS[language]} bg-opacity-10`;
+}
 
 export const RepositoryCard: React.FC<{ repo: Repository }> = ({ repo }) => {
   const { t } = useTranslation();
@@ -49,7 +58,11 @@ export const RepositoryCard: React.FC<{ repo: Repository }> = ({ repo }) => {
 
       <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-500 sm:text-sm">
         {repo.language && (
-          <span className="rounded-full bg-cyan-50 px-3 py-1 font-medium text-cyan-700">
+          <span
+            className={`rounded-full px-3 py-1 font-medium ${getLanguageTagClass(
+              repo.language
+            )}`}
+          >
             {repo.language}
           </span>
         )}
