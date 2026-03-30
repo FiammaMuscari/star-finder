@@ -97,16 +97,21 @@ test("low-star fast movers outrank huge repos with weak recent growth", () => {
   assert.equal(today.items.find((item) => item.repo_full_name === "mega/legacy-platform")?.growth, 2);
 });
 
-test("zero and negative growth are clamped to zero without breaking ranking", () => {
+test("zero and negative growth are clamped to zero and excluded from trending results", () => {
   const snapshotStore = createEdgeCaseSnapshotStore();
+  const { comparisons } = buildTrendingComparisons(snapshotStore, "week");
   const week = buildTrendingResponse(snapshotStore, "week");
 
   assert.equal(
-    week.items.find((item) => item.repo_full_name === "stable/quiet-engine")?.growth,
+    comparisons.find((item) => item.repo_full_name === "stable/quiet-engine")?.growth,
     0
   );
   assert.equal(
-    week.items.find((item) => item.repo_full_name === "decline/old-news")?.growth,
+    comparisons.find((item) => item.repo_full_name === "decline/old-news")?.growth,
     0
+  );
+  assert.deepEqual(
+    week.items.map((item) => item.repo_full_name),
+    ["indie/rocket-launch", "mega/legacy-platform"]
   );
 });
