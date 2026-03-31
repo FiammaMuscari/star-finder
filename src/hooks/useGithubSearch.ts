@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { FilterState, Repository } from "../types";
 
 const PER_PAGE = 12;
+const DEFAULT_DISCOVERY_MIN_STARS = 10;
+const SEARCH_QUERY_MIN_STARS = 1;
 
 type SearchResponse = {
   items?: Repository[];
@@ -9,6 +11,10 @@ type SearchResponse = {
 };
 
 const requestCache = new Map<string, SearchResponse>();
+
+function getMinimumStars(filterState: FilterState) {
+  return filterState.searchQuery.trim() ? SEARCH_QUERY_MIN_STARS : DEFAULT_DISCOVERY_MIN_STARS;
+}
 
 export const useGithubSearch = (filterState: FilterState) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
@@ -61,15 +67,20 @@ export const useGithubSearch = (filterState: FilterState) => {
           }
         }
 
+        const minimumStars = getMinimumStars(filterState);
         const queryParts = [
-          filterState.searchQuery || "",
+          filterState.searchQuery.trim(),
           filterState.language ? `language:${filterState.language}` : "",
           dateFilter,
+          `stars:>=${minimumStars}`,
+          "archived:false",
+          "mirror:false",
         ].filter(Boolean);
+        const sort = filterState.filterMode === "updated" ? "updated" : "stars";
 
         const params = new URLSearchParams({
-          q: queryParts.join(" ") || "stars:>1",
-          sort: "stars",
+          q: queryParts.join(" "),
+          sort,
           order: "desc",
           per_page: PER_PAGE.toString(),
           page: (isNewFilter ? 1 : page).toString(),

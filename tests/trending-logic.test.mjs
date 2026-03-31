@@ -115,3 +115,27 @@ test("zero and negative growth are clamped to zero and excluded from trending re
     ["indie/rocket-launch", "mega/legacy-platform"]
   );
 });
+
+test("today stays unavailable when the baseline snapshot is older than the allowed window", () => {
+  const snapshotStore = {
+    snapshots: [
+      {
+        repo_full_name: "octo/slow-gap",
+        stars: 100,
+        language: "TypeScript",
+        captured_at: "2026-03-27T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "octo/slow-gap",
+        stars: 130,
+        language: "TypeScript",
+        captured_at: "2026-03-31T00:00:00.000Z",
+      },
+    ],
+  };
+
+  const payload = buildTrendingResponse(snapshotStore, "today");
+
+  assert.equal(payload.ready, false);
+  assert.deepEqual(payload.items, []);
+});

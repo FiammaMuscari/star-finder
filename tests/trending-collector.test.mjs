@@ -316,3 +316,57 @@ test("repos outside the tracking window leave the tracked set", async () => {
   assert.equal(summary.trackedRepoCount, 1);
   assert.deepEqual(repoFetches, ["active/repo"]);
 });
+
+test("collection prioritizes tracked repos by recent growth instead of total stars", async () => {
+  const repoFetches = [];
+  const snapshotStore = {
+    snapshots: [
+      {
+        repo_full_name: "big/stable",
+        stars: 10_000,
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "big/stable",
+        stars: 10_002,
+        captured_at: "2026-03-26T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "small/rising",
+        stars: 80,
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "small/rising",
+        stars: 140,
+        captured_at: "2026-03-26T00:00:00.000Z",
+      },
+    ],
+  };
+
+  const fetchImpl = async (url) => {
+    if (url.includes("/search/repositories?")) {
+      return createJsonResponse({ items: [] });
+    }
+
+    repoFetches.push(url.split("/repos/")[1]);
+    return createJsonResponse({
+      full_name: url.split("/repos/")[1],
+      stargazers_count: 150,
+      language: "TypeScript",
+    });
+  };
+
+  await collectTrendingSnapshots({
+    snapshotStore,
+    fetchImpl,
+    headers: { Authorization: "Bearer test" },
+    now: new Date("2026-03-26T12:00:00.000Z"),
+    maxRepos: 1,
+    trackedRepoQuota: 1,
+    discoveryRepoQuota: 0,
+    discoveryQueries: [],
+  });
+
+  assert.deepEqual(repoFetches, ["small/rising"]);
+});

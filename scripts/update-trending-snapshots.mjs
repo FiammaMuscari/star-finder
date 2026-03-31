@@ -50,9 +50,13 @@ export function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
 
+function compareSnapshotsByCapturedAt(left, right) {
+  return left.captured_at.localeCompare(right.captured_at);
+}
+
 function getLatestTrackedRepos(snapshots, now, trackedRepoWindowDays, maxRepos) {
   const cutoff = now.getTime() - trackedRepoWindowDays * 86400000;
-  const latestSnapshotByRepo = new Map();
+  const snapshotsByRepo = new Map();
 
   snapshots.forEach((snapshot) => {
     const capturedAtTime = new Date(snapshot.captured_at).getTime();
@@ -61,26 +65,40 @@ function getLatestTrackedRepos(snapshots, now, trackedRepoWindowDays, maxRepos) 
       return;
     }
 
-    const existing = latestSnapshotByRepo.get(snapshot.repo_full_name);
-
-    if (!existing || capturedAtTime > new Date(existing.captured_at).getTime()) {
-      latestSnapshotByRepo.set(snapshot.repo_full_name, snapshot);
-    }
+    const existing = snapshotsByRepo.get(snapshot.repo_full_name) || [];
+    existing.push(snapshot);
+    snapshotsByRepo.set(snapshot.repo_full_name, existing);
   });
 
-  return Array.from(latestSnapshotByRepo.values())
+  return Array.from(snapshotsByRepo.entries())
+    .map(([repoFullName, repoSnapshots]) => {
+      const ordered = [...repoSnapshots].sort(compareSnapshotsByCapturedAt);
+      const latest = ordered[ordered.length - 1];
+      const previous = ordered[ordered.length - 2] || null;
+      const recentGrowth = previous ? Math.max(0, latest.stars - previous.stars) : 0;
+
+      return {
+        repoFullName,
+        latest,
+        recentGrowth,
+      };
+    })
     .sort((left, right) => {
+      if (right.recentGrowth !== left.recentGrowth) {
+        return right.recentGrowth - left.recentGrowth;
+      }
+
       const capturedAtDiff =
-        new Date(right.captured_at).getTime() - new Date(left.captured_at).getTime();
+        new Date(right.latest.captured_at).getTime() - new Date(left.latest.captured_at).getTime();
 
       if (capturedAtDiff !== 0) {
         return capturedAtDiff;
       }
 
-      return right.stars - left.stars;
+      return right.latest.stars - left.latest.stars;
     })
     .slice(0, maxRepos)
-    .map((snapshot) => snapshot.repo_full_name);
+    .map((entry) => entry.repoFullName);
 }
 
 function selectCandidateRepoNames({
@@ -128,9 +146,9 @@ export async function discoverCandidates({
   for (const query of discoveryQueries) {
     const params = new URLSearchParams({
       q: query.buildQuery({ createdAfter, pushedAfter }),
-      sort: "stars",
-      order: "desc",
-      per_page: String(maxDiscoveryResultsPerQuery),
+      sort: query.sortBy || "stars",
+      order: query.order || "desc",
+      per_page: String(query.maxResults || maxDiscoveryResultsPerQuery),
       page: "1",
     });
 

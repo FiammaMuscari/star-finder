@@ -71,6 +71,20 @@ function compareSnapshotsByCapturedAt(left, right) {
   return left.captured_at.localeCompare(right.captured_at);
 }
 
+function hasFreshBaseline(latest, baseline, period) {
+  if (!baseline) {
+    return false;
+  }
+
+  const latestTime = new Date(latest.captured_at).getTime();
+  const baselineTime = new Date(baseline.captured_at).getTime();
+  const actualWindowDays = (latestTime - baselineTime) / 86400000;
+  const maxAllowedWindowDays =
+    period === "today" ? 2 : period === "week" ? 9 : 35;
+
+  return actualWindowDays <= maxAllowedWindowDays;
+}
+
 function compareTrendingComparisons(left, right) {
   if (left.available !== right.available) {
     return left.available ? -1 : 1;
@@ -126,11 +140,12 @@ export function buildTrendingComparisons(snapshotStore, period) {
     const baseline = [...ordered]
       .reverse()
       .find((snapshot) => new Date(snapshot.captured_at).getTime() <= cutoffTime);
+    const available = hasFreshBaseline(latest, baseline, normalizedPeriod);
 
     comparisons.push({
       repo_full_name: repoFullName,
-      available: Boolean(baseline),
-      growth: baseline ? Math.max(0, latest.stars - baseline.stars) : null,
+      available,
+      growth: available ? Math.max(0, latest.stars - baseline.stars) : null,
       latest: {
         stars: latest.stars,
         captured_at: latest.captured_at,
