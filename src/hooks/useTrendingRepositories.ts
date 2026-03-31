@@ -13,7 +13,7 @@ const EMPTY_PERIOD_AVAILABILITY: PeriodAvailability = {
   month: false,
 };
 
-export function useTrendingRepositories(period: TrendingPeriod, language = "All") {
+export function useTrendingRepositories(period: TrendingPeriod, language = "") {
   const [repositories, setRepositories] = useState<TrendingRepository[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +21,13 @@ export function useTrendingRepositories(period: TrendingPeriod, language = "All"
   const [periodAvailability, setPeriodAvailability] = useState<PeriodAvailability>(
     EMPTY_PERIOD_AVAILABILITY
   );
-  const requestKey = useMemo(() => `${period}:${language}`, [language, period]);
+  const normalizedLanguage = useMemo(() => {
+    return language === "All" ? "" : language.trim();
+  }, [language]);
+  const requestKey = useMemo(
+    () => `${period}:${normalizedLanguage || "__all__"}`,
+    [normalizedLanguage, period]
+  );
   const activeRequest = useRef(requestKey);
 
   useEffect(() => {
@@ -36,21 +42,25 @@ export function useTrendingRepositories(period: TrendingPeriod, language = "All"
         if (responseCache.has(requestKey)) {
           const cached = responseCache.get(requestKey) as TrendingResponse;
 
-          if (!active) {
+          if (cached.ready) {
+            if (!active) {
+              return;
+            }
+
+            setRepositories(cached.items);
+            setMessage(cached.message);
+            setPeriodAvailability(cached.periodAvailability);
+            setLoading(false);
             return;
           }
 
-          setRepositories(cached.items);
-          setMessage(cached.message);
-          setPeriodAvailability(cached.periodAvailability);
-          setLoading(false);
-          return;
+          responseCache.delete(requestKey);
         }
 
         const query = new URLSearchParams({ period });
 
-        if (language !== "All") {
-          query.set("language", language);
+        if (normalizedLanguage) {
+          query.set("language", normalizedLanguage);
         }
 
         const response = await fetch(`/api/trending?${query.toString()}`);
@@ -60,7 +70,11 @@ export function useTrendingRepositories(period: TrendingPeriod, language = "All"
         }
 
         const data = (await response.json()) as TrendingResponse;
-        responseCache.set(requestKey, data);
+        if (data.ready) {
+          responseCache.set(requestKey, data);
+        } else {
+          responseCache.delete(requestKey);
+        }
 
         if (!active || activeRequest.current !== requestKey) {
           return;
@@ -92,7 +106,7 @@ export function useTrendingRepositories(period: TrendingPeriod, language = "All"
     return () => {
       active = false;
     };
-  }, [language, period, requestKey]);
+  }, [normalizedLanguage, period, requestKey]);
 
   return {
     repositories,

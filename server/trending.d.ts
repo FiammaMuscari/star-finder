@@ -6,6 +6,7 @@ export type TrendingResult = {
   repo_full_name: string;
   stars: number;
   growth: number;
+  language: string | null;
   captured_at: string;
 };
 
@@ -16,6 +17,7 @@ export type TrendingComparison = {
   latest: {
     stars: number;
     captured_at: string;
+    language: string | null;
   };
   baseline: {
     stars: number;
@@ -29,12 +31,15 @@ export type TrendingPayload = {
   days: number;
   ready: boolean;
   message: string | null;
+  periodAvailability: Record<TrendingPeriod, boolean>;
   items: TrendingResult[];
 };
 
 export const PERIOD_DAYS: Record<TrendingPeriod, number>;
 
 export function normalizePeriod(period: string): TrendingPeriod;
+
+export function normalizeLanguage(language: string): string;
 
 export function normalizeCapturedAt(date: string): string;
 
@@ -62,8 +67,14 @@ export function buildTrendingComparisons(
   comparisons: TrendingComparison[];
 };
 
+export function buildPeriodAvailability(
+  snapshotStore: SnapshotStore,
+  language?: string
+): Record<TrendingPeriod, boolean>;
+
 export function buildTrendingResponse(
   snapshotStore: SnapshotStore,
   period: string,
-  limit?: number
+  limit?: number,
+  language?: string
 ): TrendingPayload;

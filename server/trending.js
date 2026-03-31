@@ -83,12 +83,16 @@ function compareTrendingComparisons(left, right) {
   return (right.growth || 0) - (left.growth || 0);
 }
 
+function hasPositiveGrowth(comparison) {
+  return comparison.available && typeof comparison.growth === "number" && comparison.growth > 0;
+}
+
 function getAvailableComparisons(snapshotStore, period, language = "") {
   const normalizedLanguage = normalizeLanguage(language);
   const { comparisons } = buildTrendingComparisons(snapshotStore, period);
 
   return comparisons.filter((comparison) => {
-    if (!comparison.available || comparison.growth === null) {
+    if (!hasPositiveGrowth(comparison)) {
       return false;
     }
 
