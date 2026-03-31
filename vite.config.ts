@@ -1,7 +1,11 @@
 import type { ClientRequest } from "node:http";
 import { defineConfig, loadEnv, type ProxyOptions } from "vite";
 import { readSnapshotStore } from "./server/trending-snapshots.js";
-import { buildTrendingResponse, normalizePeriod } from "./server/trending.js";
+import {
+  buildTrendingResponse,
+  normalizeLanguage,
+  normalizePeriod,
+} from "./server/trending.js";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), ["GITHUB_"]);
@@ -28,8 +32,9 @@ export default defineConfig(({ mode }) => {
             try {
               const url = new URL(req.url || "/api/trending", "http://localhost");
               const period = normalizePeriod(url.searchParams.get("period") || "today");
+              const language = normalizeLanguage(url.searchParams.get("language") || "");
               const snapshotStore = await readSnapshotStore();
-              const payload = buildTrendingResponse(snapshotStore, period, 10);
+              const payload = buildTrendingResponse(snapshotStore, period, 10, language);
 
               res.statusCode = 200;
               res.setHeader("Content-Type", "application/json");

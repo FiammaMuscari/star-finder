@@ -153,7 +153,7 @@ const App: React.FC = () => {
             <TimeRangeFilter {...timeRangeFilterProps} />
           </section>
 
-          <TrendingPreviewSection />
+          <TrendingPreviewSection selectedLanguage={filterState.language} />
           {errorDisplay}
           <RepositoryList {...repositoryListProps} />
         </main>

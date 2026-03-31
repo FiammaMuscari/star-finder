@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LANGUAGE_COLORS, LANGUAGES } from "../constants";
+import { LANGUAGE_COLORS } from "../constants";
 import { useTrendingRepositories } from "../hooks/useTrendingRepositories";
 import type { TrendingPeriod, TrendingRepository } from "../types";
 
@@ -9,7 +9,6 @@ const PERIODS: Array<{ labelKey: string; value: TrendingPeriod }> = [
   { labelKey: "trendingWeek", value: "week" },
   { labelKey: "trendingMonth", value: "month" },
 ];
-const TRENDING_LANGUAGE_OPTIONS = ["All", ...LANGUAGES];
 
 const emptyStateKeyByPeriod: Record<TrendingPeriod, string> = {
   today: "trendingCollectingToday",
@@ -76,22 +75,13 @@ function getAvatarTone(owner: string) {
   return tones[index];
 }
 
-function getLanguageSelectClass(language: string) {
-  if (language === "All") {
-    return "border-white/10 bg-slate-900/70 text-slate-200";
-  }
+type TrendingPreviewSectionProps = {
+  selectedLanguage: string;
+};
 
-  if (!LANGUAGE_COLORS[language]) {
-    return "border-white/10 bg-slate-900/70 text-slate-200";
-  }
-
-  return `${getLanguageTagClass(language)} bg-opacity-10`;
-}
-
-export function TrendingPreviewSection() {
+export function TrendingPreviewSection({ selectedLanguage }: TrendingPreviewSectionProps) {
   const { t } = useTranslation();
   const [period, setPeriod] = useState<TrendingPeriod>("today");
-  const [selectedLanguage, setSelectedLanguage] = useState("All");
   const {
     repositories,
     loading,
@@ -209,53 +199,34 @@ export function TrendingPreviewSection() {
         {visiblePeriods.length > 0 && (
           <div className="flex flex-wrap justify-center gap-1.5">
             {visiblePeriods.map((item) => (
-            <button
-              key={item.value}
-              type="button"
-              onClick={() => setPeriod(item.value)}
-              className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors sm:text-xs ${
-                period === item.value
-                  ? "bg-white text-slate-950"
-                  : "bg-slate-900/70 text-slate-200 hover:bg-slate-800"
-              }`}
-            >
-              {t(item.labelKey)}
-            </button>
+              <button
+                key={item.value}
+                type="button"
+                onClick={() => setPeriod(item.value)}
+                className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors sm:text-xs ${
+                  period === item.value
+                    ? "bg-white text-slate-950"
+                    : "bg-slate-900/70 text-slate-200 hover:bg-slate-800"
+                }`}
+              >
+                {t(item.labelKey)}
+              </button>
             ))}
           </div>
         )}
 
-        <label
-          className={`relative inline-flex max-w-full items-center overflow-hidden rounded-full border px-3 py-1.5 text-[11px] font-medium transition-colors ${getLanguageSelectClass(
-            selectedLanguage
-          )}`}
-        >
-          <span className="mr-2 text-slate-300">{t("language")}:</span>
-          <select
-            aria-label={t("language")}
-            value={selectedLanguage}
-            onChange={(event) => setSelectedLanguage(event.target.value)}
-            className="max-w-[8.5rem] appearance-none bg-transparent pr-5 text-[11px] font-medium text-current outline-none sm:max-w-none"
+        <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5 text-[11px] font-medium text-slate-200">
+          <span className="text-slate-300">{t("language")}:</span>
+          <span
+            className={`inline-flex items-center rounded-full px-2 py-1 text-[10px] ${
+              selectedLanguage
+                ? getLanguageTagClass(selectedLanguage)
+                : "border border-white/10 bg-white/[0.04] text-slate-200"
+            }`}
           >
-            {TRENDING_LANGUAGE_OPTIONS.map((language) => (
-              <option key={language} value={language} className="bg-slate-950 text-white">
-                {language === "All" ? t("allLanguages") : language}
-              </option>
-            ))}
-          </select>
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-current"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 011.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </label>
+            {selectedLanguage || t("allLanguages")}
+          </span>
+        </div>
       </div>
 
       {loading ? (
@@ -273,7 +244,7 @@ export function TrendingPreviewSection() {
       ) : topRepositories.length === 0 ? (
         <div className="mt-2.5 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-4 text-sm text-slate-300">
           {(message ? t(message) : null) ||
-            (selectedLanguage === "All"
+            (!selectedLanguage
               ? t(emptyStateKeyByPeriod[period])
               : t("trendingNoLanguageResults", { language: selectedLanguage }))}
         </div>
