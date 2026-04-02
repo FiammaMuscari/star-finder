@@ -216,6 +216,100 @@ test("collection balances tracked repos and newly discovered repos with explicit
   );
 });
 
+test("collection reserves room for each language query before extra tracked repos", async () => {
+  const repoFetches = [];
+  const snapshotStore = {
+    snapshots: [
+      {
+        repo_full_name: "tracked/ts-one",
+        stars: 90,
+        language: "TypeScript",
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "tracked/ts-two",
+        stars: 80,
+        language: "TypeScript",
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "tracked/ts-three",
+        stars: 70,
+        language: "TypeScript",
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+    ],
+  };
+
+  const fetchImpl = async (url) => {
+    if (url.includes("/search/repositories?")) {
+      if (url.includes("query-ts")) {
+        return createJsonResponse({
+          items: [
+            { full_name: "new/ts-one" },
+            { full_name: "new/ts-two" },
+          ],
+        });
+      }
+
+      if (url.includes("query-go")) {
+        return createJsonResponse({
+          items: [
+            { full_name: "go/new-one" },
+            { full_name: "go/new-two" },
+          ],
+        });
+      }
+
+      return createJsonResponse({ items: [] });
+    }
+
+    const repoFullName = url.split("/repos/")[1];
+    repoFetches.push(repoFullName);
+
+    return createJsonResponse({
+      full_name: repoFullName,
+      stargazers_count: 100,
+      language: repoFullName.startsWith("go/") ? "Go" : "TypeScript",
+    });
+  };
+
+  const { summary } = await collectTrendingSnapshots({
+    snapshotStore,
+    fetchImpl,
+    headers: { Authorization: "Bearer test" },
+    now: new Date("2026-03-26T12:00:00.000Z"),
+    maxRepos: 4,
+    trackedRepoQuota: 3,
+    discoveryRepoQuota: 2,
+    minimumLanguageCandidates: 2,
+    discoveryQueries: [
+      {
+        name: "typescript-discovery",
+        language: "TypeScript",
+        buildQuery() {
+          return "query-ts";
+        },
+      },
+      {
+        name: "go-discovery",
+        language: "Go",
+        buildQuery() {
+          return "query-go";
+        },
+      },
+    ],
+  });
+
+  assert.equal(summary.uniqueRepoCount, 4);
+  assert.deepEqual(repoFetches, [
+    "tracked/ts-one",
+    "tracked/ts-two",
+    "go/new-one",
+    "go/new-two",
+  ]);
+});
+
 test("collection deduplicates candidates returned by multiple discovery queries", async () => {
   const repoFetches = [];
 

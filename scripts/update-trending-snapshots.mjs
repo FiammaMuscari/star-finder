@@ -97,34 +97,119 @@ function getLatestTrackedRepos(snapshots, now, trackedRepoWindowDays, maxRepos) 
 
       return right.latest.stars - left.latest.stars;
     })
-    .slice(0, maxRepos)
-    .map((entry) => entry.repoFullName);
+    .slice(0, maxRepos);
 }
 
 function selectCandidateRepoNames({
-  trackedRepos,
+  trackedRepoEntries,
   discoveredRepos,
+  discoveryResults,
   maxRepos,
   trackedRepoQuota,
   discoveryRepoQuota,
+  minimumLanguageCandidates,
 }) {
-  const prioritizedTracked = trackedRepos.slice(0, trackedRepoQuota);
-  const trackedSet = new Set(prioritizedTracked);
-  const prioritizedDiscovered = discoveredRepos
-    .filter((repoName) => !trackedSet.has(repoName))
-    .slice(0, discoveryRepoQuota);
-  const selected = [...prioritizedTracked, ...prioritizedDiscovered];
+  const selected = [];
+  const selectedSet = new Set();
+  const remainingTracked = [];
+  const languageResults = new Map();
+  const supportedLanguages = new Set();
+  const coverageCounts = new Map();
+  let trackedSelectedCount = 0;
+  let discoveredSelectedCount = 0;
 
-  if (selected.length >= maxRepos) {
-    return selected.slice(0, maxRepos);
+  discoveryResults.forEach((result) => {
+    if (!result.language) {
+      return;
+    }
+
+    languageResults.set(result.language, result.repoNames);
+    supportedLanguages.add(result.language);
+  });
+
+  function addSelectedRepo(repoFullName, source) {
+    if (!repoFullName || selectedSet.has(repoFullName) || selected.length >= maxRepos) {
+      return false;
+    }
+
+    selected.push(repoFullName);
+    selectedSet.add(repoFullName);
+
+    if (source === "tracked") {
+      trackedSelectedCount += 1;
+    }
+
+    if (source === "discovered") {
+      discoveredSelectedCount += 1;
+    }
+
+    return true;
   }
 
-  const selectedSet = new Set(selected);
-  const fallbackRepos = [...trackedRepos, ...discoveredRepos].filter(
-    (repoName) => !selectedSet.has(repoName)
-  );
+  for (const entry of trackedRepoEntries) {
+    const language = entry.latest.language ?? "";
+    const languageCount = coverageCounts.get(language) || 0;
+    const contributesToCoverage =
+      trackedSelectedCount < trackedRepoQuota &&
+      supportedLanguages.has(language) &&
+      languageCount < minimumLanguageCandidates;
 
-  return [...selected, ...fallbackRepos].slice(0, maxRepos);
+    if (contributesToCoverage && addSelectedRepo(entry.repoFullName, "tracked")) {
+      coverageCounts.set(language, languageCount + 1);
+      continue;
+    }
+
+    remainingTracked.push(entry.repoFullName);
+  }
+
+  for (const language of supportedLanguages) {
+    const repoNames = languageResults.get(language) || [];
+    let remainingNeeded = minimumLanguageCandidates - (coverageCounts.get(language) || 0);
+
+    for (const repoFullName of repoNames) {
+      if (remainingNeeded <= 0 || selected.length >= maxRepos) {
+        break;
+      }
+
+      if (addSelectedRepo(repoFullName, "discovered")) {
+        remainingNeeded -= 1;
+      }
+    }
+  }
+
+  for (const repoFullName of remainingTracked) {
+    if (trackedSelectedCount >= trackedRepoQuota || selected.length >= maxRepos) {
+      break;
+    }
+
+    addSelectedRepo(repoFullName, "tracked");
+  }
+
+  for (const repoFullName of discoveredRepos) {
+    if (discoveredSelectedCount >= discoveryRepoQuota || selected.length >= maxRepos) {
+      break;
+    }
+
+    addSelectedRepo(repoFullName, "discovered");
+  }
+
+  for (const repoFullName of remainingTracked) {
+    if (selected.length >= maxRepos) {
+      break;
+    }
+
+    addSelectedRepo(repoFullName, "tracked");
+  }
+
+  for (const repoFullName of discoveredRepos) {
+    if (selected.length >= maxRepos) {
+      break;
+    }
+
+    addSelectedRepo(repoFullName, "discovered");
+  }
+
+  return selected.slice(0, maxRepos);
 }
 
 export async function discoverCandidates({
@@ -163,17 +248,21 @@ export async function discoverCandidates({
     }
 
     const data = await response.json();
-    queryResults.push((data.items || []).map((repo) => repo.full_name));
+    queryResults.push({
+      name: query.name || null,
+      language: query.language || "",
+      repoNames: (data.items || []).map((repo) => repo.full_name),
+    });
   }
 
   const maxResultLength = queryResults.reduce(
-    (maxLength, repoNames) => Math.max(maxLength, repoNames.length),
+    (maxLength, result) => Math.max(maxLength, result.repoNames.length),
     0
   );
 
   for (let index = 0; index < maxResultLength; index += 1) {
-    queryResults.forEach((repoNames) => {
-      const repoName = repoNames[index];
+    queryResults.forEach((result) => {
+      const repoName = result.repoNames[index];
 
       if (!repoName || seenRepoNames.has(repoName)) {
         return;
@@ -186,6 +275,7 @@ export async function discoverCandidates({
 
   return {
     repoNames: discoveredRepoNames,
+    discoveryResults: queryResults,
     searchRequests,
   };
 }
@@ -227,14 +317,15 @@ export async function collectTrendingSnapshots({
   snapshotRetentionDays = TRENDING_COLLECTION_CONFIG.snapshotRetentionDays,
   discoveryQueries = getDiscoveryQueriesForDate(now),
   maxDiscoveryResultsPerQuery = TRENDING_COLLECTION_CONFIG.maxDiscoveryResultsPerQuery,
+  minimumLanguageCandidates = TRENDING_COLLECTION_CONFIG.minimumLanguageCandidates,
 } = {}) {
-  const trackedRepos = getLatestTrackedRepos(
+  const trackedRepoEntries = getLatestTrackedRepos(
     snapshotStore.snapshots,
     now,
     trackedRepoWindowDays,
     maxRepos
   );
-  const { repoNames: discoveredRepos, searchRequests } = await discoverCandidates({
+  const { repoNames: discoveredRepos, discoveryResults, searchRequests } = await discoverCandidates({
     fetchImpl,
     headers,
     now,
@@ -242,11 +333,13 @@ export async function collectTrendingSnapshots({
     maxDiscoveryResultsPerQuery,
   });
   const repoNames = selectCandidateRepoNames({
-    trackedRepos,
+    trackedRepoEntries,
     discoveredRepos,
+    discoveryResults,
     maxRepos,
     trackedRepoQuota,
     discoveryRepoQuota,
+    minimumLanguageCandidates,
   });
   const todayKey = normalizeCapturedAt(now.toISOString());
   const existingToday = new Map(
@@ -294,7 +387,7 @@ export async function collectTrendingSnapshots({
       repoRequests,
       skippedExistingToday,
       failedRepoRequests,
-      trackedRepoCount: trackedRepos.length,
+      trackedRepoCount: trackedRepoEntries.length,
       discoveredRepoCount: discoveredRepos.length,
       uniqueRepoCount: repoNames.length,
       snapshotsAdded: newSnapshots.length,
@@ -302,6 +395,7 @@ export async function collectTrendingSnapshots({
       maxTrackedRepos: maxRepos,
       trackedRepoQuota,
       discoveryRepoQuota,
+      minimumLanguageCandidates,
       trackedRepoWindowDays,
       snapshotRetentionDays,
       activeDiscoveryQueryNames: discoveryQueries.map((query) => query.name),
