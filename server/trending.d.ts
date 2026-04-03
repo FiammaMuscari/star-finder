@@ -5,8 +5,9 @@ export type TrendingPeriod = "today" | "week" | "month";
 export type TrendingResult = {
   repo_full_name: string;
   stars: number;
-  growth: number;
+  growth: number | null;
   language: string | null;
+  description?: string | null;
   captured_at: string;
 };
 

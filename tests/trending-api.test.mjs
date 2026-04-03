@@ -45,9 +45,11 @@ async function withSnapshotFile(snapshotStore, run) {
   const tempDirectory = await mkdtemp(path.join(os.tmpdir(), "star-finder-trending-"));
   const snapshotFilePath = path.join(tempDirectory, "trending-snapshots.json");
   const previousPath = process.env.TRENDING_SNAPSHOT_FILE_PATH;
+  const previousSource = process.env.TRENDING_SOURCE;
 
   await writeSnapshotStore(snapshotStore, snapshotFilePath);
   process.env.TRENDING_SNAPSHOT_FILE_PATH = snapshotFilePath;
+  process.env.TRENDING_SOURCE = "snapshots";
 
   try {
     await run(snapshotFilePath);
@@ -56,6 +58,12 @@ async function withSnapshotFile(snapshotStore, run) {
       process.env.TRENDING_SNAPSHOT_FILE_PATH = previousPath;
     } else {
       delete process.env.TRENDING_SNAPSHOT_FILE_PATH;
+    }
+
+    if (previousSource) {
+      process.env.TRENDING_SOURCE = previousSource;
+    } else {
+      delete process.env.TRENDING_SOURCE;
     }
 
     await rm(tempDirectory, { recursive: true, force: true });
