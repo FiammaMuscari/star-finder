@@ -112,6 +112,75 @@ test("repo names are grouped case-insensitively after trimming whitespace", () =
   assert.deepEqual(payload.items.map((item) => item.growth), [8]);
 });
 
+test("language views backfill with zero-growth and collecting repos after ranked results", () => {
+  const snapshotStore = {
+    snapshots: [
+      {
+        repo_full_name: "ruby/ready",
+        stars: 10,
+        language: "Ruby",
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "ruby/ready",
+        stars: 15,
+        language: "Ruby",
+        captured_at: "2026-03-26T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "ruby/flat",
+        stars: 40,
+        language: "Ruby",
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "ruby/flat",
+        stars: 40,
+        language: "Ruby",
+        captured_at: "2026-03-26T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "ruby/fresh",
+        stars: 90,
+        language: "Ruby",
+        captured_at: "2026-03-26T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "ts/ready",
+        stars: 10,
+        language: "TypeScript",
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "ts/ready",
+        stars: 30,
+        language: "TypeScript",
+        captured_at: "2026-03-26T00:00:00.000Z",
+      },
+    ],
+  };
+
+  const rubyPayload = buildTrendingResponse(snapshotStore, "today", 10, "Ruby");
+  const allPayload = buildTrendingResponse(snapshotStore, "today", 10);
+
+  assert.equal(rubyPayload.ready, true);
+  assert.deepEqual(
+    rubyPayload.items.map((item) => [item.repo_full_name, item.growth]),
+    [
+      ["ruby/ready", 5],
+      ["ruby/flat", 0],
+      ["ruby/fresh", null],
+    ]
+  );
+  assert.deepEqual(
+    allPayload.items.map((item) => [item.repo_full_name, item.growth]),
+    [
+      ["ts/ready", 20],
+      ["ruby/ready", 5],
+    ]
+  );
+});
+
 test("low-star fast movers outrank huge repos with weak recent growth", () => {
   const snapshotStore = createEdgeCaseSnapshotStore();
   const today = buildTrendingResponse(snapshotStore, "today");

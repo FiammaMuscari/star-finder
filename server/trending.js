@@ -124,6 +124,14 @@ function hasPositiveGrowth(comparison) {
   return comparison.available && typeof comparison.growth === "number" && comparison.growth > 0;
 }
 
+function matchesLanguage(comparison, normalizedLanguage) {
+  if (!normalizedLanguage) {
+    return true;
+  }
+
+  return comparison.latest.language === normalizedLanguage;
+}
+
 function getAvailableComparisons(snapshotStore, period, language = "") {
   const normalizedLanguage = normalizeLanguage(language);
   const { comparisons } = buildTrendingComparisons(snapshotStore, period);
@@ -133,11 +141,7 @@ function getAvailableComparisons(snapshotStore, period, language = "") {
       return false;
     }
 
-    if (!normalizedLanguage) {
-      return true;
-    }
-
-    return comparison.latest.language === normalizedLanguage;
+    return matchesLanguage(comparison, normalizedLanguage);
   });
 }
 
@@ -211,12 +215,10 @@ export function buildPeriodAvailability(snapshotStore, language = "") {
 }
 
 export function buildTrendingResponse(snapshotStore, period, limit = 10, language = "") {
-  const { period: normalizedPeriod, days } = buildTrendingComparisons(
-    snapshotStore,
-    period
-  );
+  const { period: normalizedPeriod, days, comparisons } = buildTrendingComparisons(snapshotStore, period);
   const normalizedLanguage = normalizeLanguage(language);
-  const items = getAvailableComparisons(snapshotStore, normalizedPeriod, normalizedLanguage)
+  const readyItems = comparisons
+    .filter((comparison) => hasPositiveGrowth(comparison) && matchesLanguage(comparison, normalizedLanguage))
     .map((comparison) => ({
       repo_full_name: comparison.repo_full_name,
       stars: comparison.latest.stars,
@@ -224,8 +226,21 @@ export function buildTrendingResponse(snapshotStore, period, limit = 10, languag
       language: comparison.latest.language,
       captured_at: comparison.latest.captured_at,
     }));
-  const limitedItems = items.slice(0, limit);
-  const isReady = limitedItems.length > 0;
+  const supplementalItems =
+    normalizedLanguage && readyItems.length > 0 && readyItems.length < limit
+      ? comparisons
+          .filter((comparison) => matchesLanguage(comparison, normalizedLanguage))
+          .filter((comparison) => !readyItems.some((item) => item.repo_full_name === comparison.repo_full_name))
+          .map((comparison) => ({
+            repo_full_name: comparison.repo_full_name,
+            stars: comparison.latest.stars,
+            growth: comparison.growth,
+            language: comparison.latest.language,
+            captured_at: comparison.latest.captured_at,
+          }))
+      : [];
+  const limitedItems = [...readyItems, ...supplementalItems].slice(0, limit);
+  const isReady = readyItems.length > 0;
   const periodAvailability = buildPeriodAvailability(snapshotStore, normalizedLanguage);
 
   return {
