@@ -50,6 +50,77 @@ export function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
 
+function normalizeRepoFullName(repoFullName) {
+  return typeof repoFullName === "string" ? repoFullName.trim() : "";
+}
+
+function getRepoFullNameKey(repoFullName) {
+  return normalizeRepoFullName(repoFullName).toLowerCase();
+}
+
+function resolveCanonicalRepoFullName(repoAliases, repoFullName) {
+  let canonicalRepoFullName = normalizeRepoFullName(repoFullName);
+  const seen = new Set();
+
+  while (canonicalRepoFullName) {
+    const repoKey = getRepoFullNameKey(canonicalRepoFullName);
+
+    if (!repoKey || seen.has(repoKey)) {
+      break;
+    }
+
+    seen.add(repoKey);
+    const nextRepoFullName = repoAliases.get(repoKey);
+
+    if (!nextRepoFullName || nextRepoFullName === canonicalRepoFullName) {
+      break;
+    }
+
+    canonicalRepoFullName = nextRepoFullName;
+  }
+
+  return canonicalRepoFullName;
+}
+
+function registerRepoAlias(repoAliases, repoFullName, canonicalRepoFullName) {
+  const normalizedRepoFullName = normalizeRepoFullName(repoFullName);
+  const resolvedCanonicalRepoFullName = resolveCanonicalRepoFullName(
+    repoAliases,
+    canonicalRepoFullName
+  );
+
+  if (!normalizedRepoFullName || !resolvedCanonicalRepoFullName) {
+    return;
+  }
+
+  repoAliases.set(getRepoFullNameKey(normalizedRepoFullName), resolvedCanonicalRepoFullName);
+  repoAliases.set(
+    getRepoFullNameKey(resolvedCanonicalRepoFullName),
+    resolvedCanonicalRepoFullName
+  );
+}
+
+function canonicalizeSnapshotsByRepoName(snapshots, repoAliases) {
+  return snapshots.map((snapshot) => {
+    const repoFullName = normalizeRepoFullName(snapshot.repo_full_name);
+    const canonicalRepoFullName = resolveCanonicalRepoFullName(repoAliases, repoFullName);
+
+    if (!canonicalRepoFullName || canonicalRepoFullName === snapshot.repo_full_name) {
+      return repoFullName === snapshot.repo_full_name
+        ? snapshot
+        : {
+            ...snapshot,
+            repo_full_name: repoFullName,
+          };
+    }
+
+    return {
+      ...snapshot,
+      repo_full_name: canonicalRepoFullName,
+    };
+  });
+}
+
 function compareSnapshotsByCapturedAt(left, right) {
   return left.captured_at.localeCompare(right.captured_at);
 }
@@ -65,20 +136,30 @@ function getLatestTrackedRepos(snapshots, now, trackedRepoWindowDays, maxRepos) 
       return;
     }
 
-    const existing = snapshotsByRepo.get(snapshot.repo_full_name) || [];
-    existing.push(snapshot);
-    snapshotsByRepo.set(snapshot.repo_full_name, existing);
+    const repoFullName = normalizeRepoFullName(snapshot.repo_full_name);
+    const repoKey = getRepoFullNameKey(repoFullName);
+
+    if (!repoKey) {
+      return;
+    }
+
+    const existing = snapshotsByRepo.get(repoKey) || [];
+    existing.push({
+      ...snapshot,
+      repo_full_name: repoFullName,
+    });
+    snapshotsByRepo.set(repoKey, existing);
   });
 
-  return Array.from(snapshotsByRepo.entries())
-    .map(([repoFullName, repoSnapshots]) => {
+  return Array.from(snapshotsByRepo.values())
+    .map((repoSnapshots) => {
       const ordered = [...repoSnapshots].sort(compareSnapshotsByCapturedAt);
       const latest = ordered[ordered.length - 1];
       const previous = ordered[ordered.length - 2] || null;
       const recentGrowth = previous ? Math.max(0, latest.stars - previous.stars) : 0;
 
       return {
-        repoFullName,
+        repoFullName: latest.repo_full_name,
         latest,
         recentGrowth,
       };
@@ -128,12 +209,15 @@ function selectCandidateRepoNames({
   });
 
   function addSelectedRepo(repoFullName, source) {
-    if (!repoFullName || selectedSet.has(repoFullName) || selected.length >= maxRepos) {
+    const normalizedRepoFullName = normalizeRepoFullName(repoFullName);
+    const repoKey = getRepoFullNameKey(normalizedRepoFullName);
+
+    if (!repoKey || selectedSet.has(repoKey) || selected.length >= maxRepos) {
       return false;
     }
 
-    selected.push(repoFullName);
-    selectedSet.add(repoFullName);
+    selected.push(normalizedRepoFullName);
+    selectedSet.add(repoKey);
 
     if (source === "tracked") {
       trackedSelectedCount += 1;
@@ -251,7 +335,9 @@ export async function discoverCandidates({
     queryResults.push({
       name: query.name || null,
       language: query.language || "",
-      repoNames: (data.items || []).map((repo) => repo.full_name),
+      repoNames: (data.items || [])
+        .map((repo) => normalizeRepoFullName(repo.full_name))
+        .filter(Boolean),
     });
   }
 
@@ -262,13 +348,14 @@ export async function discoverCandidates({
 
   for (let index = 0; index < maxResultLength; index += 1) {
     queryResults.forEach((result) => {
-      const repoName = result.repoNames[index];
+      const repoName = normalizeRepoFullName(result.repoNames[index]);
+      const repoKey = getRepoFullNameKey(repoName);
 
-      if (!repoName || seenRepoNames.has(repoName)) {
+      if (!repoKey || seenRepoNames.has(repoKey)) {
         return;
       }
 
-      seenRepoNames.add(repoName);
+      seenRepoNames.add(repoKey);
       discoveredRepoNames.push(repoName);
     });
   }
@@ -298,7 +385,7 @@ export async function fetchRepoStars(
 
   const repo = await response.json();
   return {
-    repo_full_name: repo.full_name,
+    repo_full_name: normalizeRepoFullName(repo.full_name),
     stars: repo.stargazers_count,
     language: repo.language ?? null,
     captured_at: capturedAt,
@@ -342,10 +429,11 @@ export async function collectTrendingSnapshots({
     minimumLanguageCandidates,
   });
   const todayKey = normalizeCapturedAt(now.toISOString());
+  const repoAliases = new Map();
   const existingToday = new Map(
     snapshotStore.snapshots
       .filter((snapshot) => snapshot.captured_at === todayKey)
-      .map((snapshot) => [snapshot.repo_full_name, snapshot])
+      .map((snapshot) => [getRepoFullNameKey(snapshot.repo_full_name), snapshot])
   );
   const newSnapshots = [];
   let repoRequests = 0;
@@ -353,7 +441,8 @@ export async function collectTrendingSnapshots({
   let failedRepoRequests = 0;
 
   for (const repoFullName of repoNames) {
-    const existingSnapshot = existingToday.get(repoFullName);
+    const requestedRepoFullName = resolveCanonicalRepoFullName(repoAliases, repoFullName);
+    const existingSnapshot = existingToday.get(getRepoFullNameKey(requestedRepoFullName));
 
     if (existingSnapshot && existingSnapshot.language) {
       skippedExistingToday += 1;
@@ -361,21 +450,34 @@ export async function collectTrendingSnapshots({
     }
 
     repoRequests += 1;
-    const snapshot = await fetchRepoStars(repoFullName, {
+    const snapshot = await fetchRepoStars(requestedRepoFullName, {
       fetchImpl,
       headers,
       capturedAt: todayKey,
     });
 
     if (snapshot) {
-      newSnapshots.push(snapshot);
+      registerRepoAlias(repoAliases, repoFullName, snapshot.repo_full_name);
+
+      const canonicalSnapshot = {
+        ...snapshot,
+        repo_full_name: resolveCanonicalRepoFullName(repoAliases, snapshot.repo_full_name),
+      };
+
+      newSnapshots.push(canonicalSnapshot);
+      existingToday.set(getRepoFullNameKey(canonicalSnapshot.repo_full_name), canonicalSnapshot);
     } else {
       failedRepoRequests += 1;
     }
   }
 
+  const canonicalSnapshots = canonicalizeSnapshotsByRepoName(
+    snapshotStore.snapshots,
+    repoAliases
+  );
+  const canonicalNewSnapshots = canonicalizeSnapshotsByRepoName(newSnapshots, repoAliases);
   const mergedSnapshots = pruneSnapshots(
-    mergeSnapshots(snapshotStore.snapshots, newSnapshots),
+    mergeSnapshots(canonicalSnapshots, canonicalNewSnapshots),
     snapshotRetentionDays
   );
 

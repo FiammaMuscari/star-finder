@@ -87,6 +87,31 @@ test("language filtering keeps the top 10 ranking within the selected language",
   );
 });
 
+test("repo names are grouped case-insensitively after trimming whitespace", () => {
+  const snapshotStore = {
+    snapshots: [
+      {
+        repo_full_name: " Octo/Tool ",
+        stars: 12,
+        language: "TypeScript",
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+      {
+        repo_full_name: "octo/tool",
+        stars: 20,
+        language: "TypeScript",
+        captured_at: "2026-03-26T00:00:00.000Z",
+      },
+    ],
+  };
+
+  const payload = buildTrendingResponse(snapshotStore, "today");
+
+  assert.equal(payload.ready, true);
+  assert.deepEqual(payload.items.map((item) => item.repo_full_name), ["octo/tool"]);
+  assert.deepEqual(payload.items.map((item) => item.growth), [8]);
+});
+
 test("low-star fast movers outrank huge repos with weak recent growth", () => {
   const snapshotStore = createEdgeCaseSnapshotStore();
   const today = buildTrendingResponse(snapshotStore, "today");

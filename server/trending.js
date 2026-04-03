@@ -22,15 +22,29 @@ export function normalizeCapturedAt(date) {
   return normalized.toISOString();
 }
 
+function normalizeRepoFullName(repoFullName) {
+  return typeof repoFullName === "string" ? repoFullName.trim() : "";
+}
+
+function getRepoFullNameKey(repoFullName) {
+  return normalizeRepoFullName(repoFullName).toLowerCase();
+}
+
 export function mergeSnapshots(existingSnapshots, incomingSnapshots) {
   const byKey = new Map();
 
   [...existingSnapshots, ...incomingSnapshots].forEach((snapshot) => {
+    const repoFullName = normalizeRepoFullName(snapshot.repo_full_name);
+
+    if (!repoFullName) {
+      return;
+    }
+
     const capturedAt = normalizeCapturedAt(snapshot.captured_at);
-    const key = `${snapshot.repo_full_name}:${capturedAt}`;
+    const key = `${getRepoFullNameKey(repoFullName)}:${capturedAt}`;
     const previous = byKey.get(key);
     byKey.set(key, {
-      repo_full_name: snapshot.repo_full_name,
+      repo_full_name: repoFullName,
       stars: snapshot.stars,
       captured_at: capturedAt,
       language: snapshot.language ?? previous?.language ?? null,
@@ -38,11 +52,14 @@ export function mergeSnapshots(existingSnapshots, incomingSnapshots) {
   });
 
   return Array.from(byKey.values()).sort((left, right) => {
-    if (left.repo_full_name === right.repo_full_name) {
+    const leftKey = getRepoFullNameKey(left.repo_full_name);
+    const rightKey = getRepoFullNameKey(right.repo_full_name);
+
+    if (leftKey === rightKey) {
       return left.captured_at.localeCompare(right.captured_at);
     }
 
-    return left.repo_full_name.localeCompare(right.repo_full_name);
+    return leftKey.localeCompare(rightKey);
   });
 }
 
@@ -56,15 +73,21 @@ export function pruneSnapshots(snapshots, daysToKeep = 90) {
 
 export function getTrackedRepoNames(snapshots, daysBack = 45) {
   const cutoff = Date.now() - daysBack * 86400000;
-  const repoNames = new Set();
+  const repoNames = new Map();
 
   snapshots.forEach((snapshot) => {
     if (new Date(snapshot.captured_at).getTime() >= cutoff) {
-      repoNames.add(snapshot.repo_full_name);
+      const repoFullName = normalizeRepoFullName(snapshot.repo_full_name);
+
+      if (!repoFullName) {
+        return;
+      }
+
+      repoNames.set(getRepoFullNameKey(repoFullName), repoFullName);
     }
   });
 
-  return Array.from(repoNames);
+  return Array.from(repoNames.values());
 }
 
 function compareSnapshotsByCapturedAt(left, right) {
@@ -125,16 +148,27 @@ export function buildTrendingComparisons(snapshotStore, period) {
   const snapshotsByRepo = new Map();
 
   snapshots.forEach((snapshot) => {
-    const existing = snapshotsByRepo.get(snapshot.repo_full_name) || [];
-    existing.push(snapshot);
-    snapshotsByRepo.set(snapshot.repo_full_name, existing);
+    const repoFullName = normalizeRepoFullName(snapshot.repo_full_name);
+    const repoKey = getRepoFullNameKey(repoFullName);
+
+    if (!repoKey) {
+      return;
+    }
+
+    const existing = snapshotsByRepo.get(repoKey) || [];
+    existing.push({
+      ...snapshot,
+      repo_full_name: repoFullName,
+    });
+    snapshotsByRepo.set(repoKey, existing);
   });
 
   const comparisons = [];
 
-  for (const [repoFullName, repoSnapshots] of snapshotsByRepo.entries()) {
+  for (const repoSnapshots of snapshotsByRepo.values()) {
     const ordered = [...repoSnapshots].sort(compareSnapshotsByCapturedAt);
     const latest = ordered[ordered.length - 1];
+    const repoFullName = latest.repo_full_name;
     const cutoffTime = new Date(latest.captured_at).getTime() - days * 86400000;
     const requiredCapturedAt = new Date(cutoffTime).toISOString();
     const baseline = [...ordered]

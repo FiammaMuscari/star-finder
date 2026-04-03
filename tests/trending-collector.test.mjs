@@ -98,6 +98,55 @@ test("collection makes one search request and one repo request per unique missin
   assert.equal(calls.filter((url) => url.includes("/repos/")).length, 2);
 });
 
+test("collection rewrites snapshot history when GitHub returns a renamed repository", async () => {
+  const snapshotStore = {
+    snapshots: [
+      {
+        repo_full_name: "old-owner/toolbox",
+        stars: 100,
+        captured_at: "2026-03-25T00:00:00.000Z",
+      },
+    ],
+  };
+
+  const fetchImpl = async (url) => {
+    if (url.endsWith("/repos/old-owner/toolbox")) {
+      return createJsonResponse({
+        full_name: "new-owner/toolbox",
+        stargazers_count: 145,
+        language: "Rust",
+      });
+    }
+
+    throw new Error(`Unexpected fetch URL: ${url}`);
+  };
+
+  const { snapshots, summary } = await collectTrendingSnapshots({
+    snapshotStore,
+    fetchImpl,
+    headers: { Authorization: "Bearer test" },
+    now: new Date("2026-03-26T12:00:00.000Z"),
+    discoveryQueries: [],
+  });
+
+  assert.equal(summary.repoRequests, 1);
+  assert.equal(summary.snapshotsAdded, 1);
+  assert.deepEqual(
+    snapshots.map((snapshot) => snapshot.repo_full_name),
+    ["new-owner/toolbox", "new-owner/toolbox"]
+  );
+  assert.equal(
+    snapshots.find((snapshot) => snapshot.captured_at === "2026-03-25T00:00:00.000Z")
+      ?.repo_full_name,
+    "new-owner/toolbox"
+  );
+  assert.equal(
+    snapshots.find((snapshot) => snapshot.captured_at === "2026-03-26T00:00:00.000Z")
+      ?.repo_full_name,
+    "new-owner/toolbox"
+  );
+});
+
 test("collection prunes snapshots older than the retention window", async () => {
   const snapshotStore = {
     snapshots: [
