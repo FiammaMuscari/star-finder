@@ -24,7 +24,15 @@ const App: React.FC = () => {
   });
   const [searchQuery, setSearchQuery] = useState("");
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { repositories, loading, error, loadMore, hasMore, totalCount } =
+  const {
+    repositories,
+    loading,
+    error,
+    loadMore,
+    hasMore,
+    totalCount,
+    prefetchSearch,
+  } =
     useGithubSearch(filterState);
 
   usePageMeta({
@@ -65,6 +73,48 @@ const App: React.FC = () => {
     }));
   }, [searchQuery]);
 
+  const handleLanguagePrefetch = useCallback(
+    (language: string) => {
+      if (language === filterState.language) {
+        return;
+      }
+
+      prefetchSearch({
+        ...filterState,
+        language,
+      });
+    },
+    [filterState, prefetchSearch]
+  );
+
+  const handleRangePrefetch = useCallback(
+    (timeRange: string) => {
+      if (timeRange === filterState.timeRange) {
+        return;
+      }
+
+      prefetchSearch({
+        ...filterState,
+        timeRange,
+      });
+    },
+    [filterState, prefetchSearch]
+  );
+
+  const handleModePrefetch = useCallback(
+    (filterMode: FilterState["filterMode"]) => {
+      if (filterMode === filterState.filterMode) {
+        return;
+      }
+
+      prefetchSearch({
+        ...filterState,
+        filterMode,
+      });
+    },
+    [filterState, prefetchSearch]
+  );
+
   const searchBarProps = useMemo(
     () => ({
       value: searchQuery,
@@ -78,8 +128,9 @@ const App: React.FC = () => {
     () => ({
       selectedLanguage: filterState.language,
       onLanguageChange: handleLanguageChange,
+      onLanguagePrefetch: handleLanguagePrefetch,
     }),
-    [filterState.language, handleLanguageChange]
+    [filterState.language, handleLanguageChange, handleLanguagePrefetch]
   );
 
   const timeRangeFilterProps = useMemo(
@@ -88,11 +139,15 @@ const App: React.FC = () => {
       filterMode: filterState.filterMode,
       onRangeSelect: handleRangeSelect,
       onModeToggle: handleModeToggle,
+      onRangePrefetch: handleRangePrefetch,
+      onModePrefetch: handleModePrefetch,
     }),
     [
       filterState.filterMode,
       filterState.timeRange,
       handleModeToggle,
+      handleModePrefetch,
+      handleRangePrefetch,
       handleRangeSelect,
     ]
   );

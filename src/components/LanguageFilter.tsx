@@ -4,13 +4,23 @@ import { LANGUAGE_COLORS, LANGUAGES } from "../constants";
 import type { LanguageFilterProps } from "../types";
 
 export const LanguageFilter: React.FC<LanguageFilterProps> = memo(
-  ({ selectedLanguage, onLanguageChange }) => {
+  ({ selectedLanguage, onLanguageChange, onLanguagePrefetch }) => {
     const { t } = useTranslation();
     const handleLanguageClick = useCallback(
       (language: string) => {
         onLanguageChange(language);
       },
       [onLanguageChange]
+    );
+    const handleLanguagePrefetch = useCallback(
+      (language: string) => {
+        if (language === selectedLanguage) {
+          return;
+        }
+
+        onLanguagePrefetch?.(language);
+      },
+      [onLanguagePrefetch, selectedLanguage]
     );
     const languageOptions = ["", ...LANGUAGES];
 
@@ -32,6 +42,9 @@ export const LanguageFilter: React.FC<LanguageFilterProps> = memo(
               key={lang}
               type="button"
               onClick={() => handleLanguageClick(lang)}
+              onMouseEnter={() => handleLanguagePrefetch(lang)}
+              onFocus={() => handleLanguagePrefetch(lang)}
+              onTouchStart={() => handleLanguagePrefetch(lang)}
               className={`rounded-full border-2 px-4 py-2 text-sm font-medium transition-all ${baseClass}`}
             >
               {lang === "" ? t("allLanguages") : lang}

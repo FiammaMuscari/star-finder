@@ -51,6 +51,7 @@ export type SearchBarProps = {
 export type LanguageFilterProps = {
   selectedLanguage: string;
   onLanguageChange: (language: string) => void;
+  onLanguagePrefetch?: (language: string) => void;
 };
 
 export type TimeRangeFilterProps = {
@@ -58,11 +59,14 @@ export type TimeRangeFilterProps = {
   filterMode: "created" | "updated";
   onRangeSelect: (range: string) => void;
   onModeToggle: () => void;
+  onRangePrefetch?: (range: string) => void;
+  onModePrefetch?: (mode: "created" | "updated") => void;
 };
 
 export type DateModeSwitchProps = {
   filterMode: "created" | "updated";
   onToggle: () => void;
+  onPrefetch?: (mode: "created" | "updated") => void;
 };
 
 export type RepositoryListProps = {

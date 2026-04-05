@@ -2,15 +2,25 @@ import { memo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { DateModeSwitchProps } from "../types";
 
-const DateModeSwitch = memo<DateModeSwitchProps>(({ filterMode, onToggle }) => {
+const DateModeSwitch = memo<DateModeSwitchProps>(({ filterMode, onToggle, onPrefetch }) => {
   const { t } = useTranslation();
+  const nextMode = filterMode === "created" ? "updated" : "created";
 
   const handleToggle = useCallback(() => {
     onToggle();
   }, [onToggle]);
 
+  const handlePrefetch = useCallback(() => {
+    onPrefetch?.(nextMode);
+  }, [nextMode, onPrefetch]);
+
   return (
-    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/35 px-3 py-2 text-slate-200">
+    <div
+      className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/35 px-3 py-2 text-slate-200"
+      onMouseEnter={handlePrefetch}
+      onFocus={handlePrefetch}
+      onTouchStart={handlePrefetch}
+    >
       <span className="text-sm">{t("created")}</span>
       <label className="relative inline-flex cursor-pointer items-center">
         <input

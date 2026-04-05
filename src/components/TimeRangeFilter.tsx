@@ -4,7 +4,14 @@ import { useTranslatedTimeRanges } from "../constants";
 import DateModeSwitch from "./DateModeSwitch";
 
 export const TimeRangeFilter: React.FC<TimeRangeFilterProps> = memo(
-  ({ selectedRange, filterMode, onRangeSelect, onModeToggle }) => {
+  ({
+    selectedRange,
+    filterMode,
+    onRangeSelect,
+    onModeToggle,
+    onRangePrefetch,
+    onModePrefetch,
+  }) => {
     const timeRanges = useTranslatedTimeRanges();
 
     const handleRangeClick = useCallback(
@@ -12,6 +19,16 @@ export const TimeRangeFilter: React.FC<TimeRangeFilterProps> = memo(
         onRangeSelect(range);
       },
       [onRangeSelect]
+    );
+    const handleRangePrefetch = useCallback(
+      (range: string) => {
+        if (range === selectedRange) {
+          return;
+        }
+
+        onRangePrefetch?.(range);
+      },
+      [onRangePrefetch, selectedRange]
     );
 
     return (
@@ -22,6 +39,9 @@ export const TimeRangeFilter: React.FC<TimeRangeFilterProps> = memo(
               key={range.value}
               type="button"
               onClick={() => handleRangeClick(range.value)}
+              onMouseEnter={() => handleRangePrefetch(range.value)}
+              onFocus={() => handleRangePrefetch(range.value)}
+              onTouchStart={() => handleRangePrefetch(range.value)}
               className={`rounded-2xl px-4 py-2 text-sm transition-colors ${
                 selectedRange === range.value
                   ? "bg-white text-slate-950"
@@ -32,7 +52,11 @@ export const TimeRangeFilter: React.FC<TimeRangeFilterProps> = memo(
             </button>
           ))}
         </div>
-        <DateModeSwitch filterMode={filterMode} onToggle={onModeToggle} />
+        <DateModeSwitch
+          filterMode={filterMode}
+          onToggle={onModeToggle}
+          onPrefetch={onModePrefetch}
+        />
       </div>
     );
   }
