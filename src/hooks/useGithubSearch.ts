@@ -11,9 +11,78 @@ type SearchResponse = {
 };
 
 const requestCache = new Map<string, SearchResponse>();
+const inFlightRequests = new Map<string, Promise<SearchResponse>>();
 
 function getMinimumStars(filterState: FilterState) {
   return filterState.searchQuery.trim() ? SEARCH_QUERY_MIN_STARS : DEFAULT_DISCOVERY_MIN_STARS;
+}
+
+function getDateFilter(filterState: FilterState) {
+  if (!filterState.timeRange) {
+    return "";
+  }
+
+  if (filterState.timeRange === "since_github") {
+    return "created:>2008-04-04";
+  }
+
+  const days = Number.parseInt(filterState.timeRange, 10);
+  const boundaryDate = new Date(Date.now() - days * 86400000).toISOString().split("T")[0];
+
+  return `${filterState.filterMode === "created" ? "created" : "pushed"}:>${boundaryDate}`;
+}
+
+function buildSearchParams(filterState: FilterState, page: number) {
+  const minimumStars = getMinimumStars(filterState);
+  const queryParts = [
+    filterState.searchQuery.trim(),
+    filterState.language ? `language:${filterState.language}` : "",
+    getDateFilter(filterState),
+    `stars:>=${minimumStars}`,
+    "archived:false",
+    "mirror:false",
+  ].filter(Boolean);
+  const sort = filterState.filterMode === "updated" ? "updated" : "stars";
+
+  return new URLSearchParams({
+    q: queryParts.join(" "),
+    sort,
+    order: "desc",
+    per_page: PER_PAGE.toString(),
+    page: page.toString(),
+  });
+}
+
+async function fetchSearchResponse(params: URLSearchParams) {
+  const cacheKey = params.toString();
+
+  if (requestCache.has(cacheKey)) {
+    return requestCache.get(cacheKey) as SearchResponse;
+  }
+
+  const existingRequest = inFlightRequests.get(cacheKey);
+
+  if (existingRequest) {
+    return existingRequest;
+  }
+
+  const request = fetch(`/api/search/repositories?${params}`)
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch repositories: ${response.statusText}`);
+      }
+
+      const data = (await response.json()) as SearchResponse;
+      requestCache.set(cacheKey, data);
+      return data;
+    })
+    .finally(() => {
+      inFlightRequests.delete(cacheKey);
+    });
+
+  inFlightRequests.set(cacheKey, request);
+
+  return request;
 }
 
 export const useGithubSearch = (filterState: FilterState) => {
@@ -50,57 +119,9 @@ export const useGithubSearch = (filterState: FilterState) => {
       try {
         setLoading(true);
         setError(null);
-
-        let dateFilter = "";
-        if (filterState.timeRange) {
-          if (filterState.timeRange === "since_github") {
-            dateFilter = "created:>2008-04-04";
-          } else {
-            const days = Number.parseInt(filterState.timeRange, 10);
-            const boundaryDate = new Date(Date.now() - days * 86400000)
-              .toISOString()
-              .split("T")[0];
-
-            dateFilter = `${
-              filterState.filterMode === "created" ? "created" : "pushed"
-            }:>${boundaryDate}`;
-          }
-        }
-
-        const minimumStars = getMinimumStars(filterState);
-        const queryParts = [
-          filterState.searchQuery.trim(),
-          filterState.language ? `language:${filterState.language}` : "",
-          dateFilter,
-          `stars:>=${minimumStars}`,
-          "archived:false",
-          "mirror:false",
-        ].filter(Boolean);
-        const sort = filterState.filterMode === "updated" ? "updated" : "stars";
-
-        const params = new URLSearchParams({
-          q: queryParts.join(" "),
-          sort,
-          order: "desc",
-          per_page: PER_PAGE.toString(),
-          page: (isNewFilter ? 1 : page).toString(),
-        });
-
-        const cacheKey = params.toString();
-        let data: SearchResponse;
-
-        if (requestCache.has(cacheKey)) {
-          data = requestCache.get(cacheKey) as SearchResponse;
-        } else {
-          const response = await fetch(`/api/search/repositories?${params}`);
-
-          if (!response.ok) {
-            throw new Error(`Failed to fetch repositories: ${response.statusText}`);
-          }
-
-          data = await response.json();
-          requestCache.set(cacheKey, data);
-        }
+        const nextPage = isNewFilter ? 1 : page;
+        const params = buildSearchParams(filterState, nextPage);
+        const data = await fetchSearchResponse(params);
 
         if (!active) {
           return;
@@ -108,7 +129,6 @@ export const useGithubSearch = (filterState: FilterState) => {
 
         const items = data.items || [];
         const nextTotalCount = data.total_count ?? 0;
-        const nextPage = isNewFilter ? 1 : page;
 
         setTotalCount(nextTotalCount);
         setRepositories((prev) => (nextPage === 1 ? items : [...prev, ...items]));
@@ -144,5 +164,11 @@ export const useGithubSearch = (filterState: FilterState) => {
     }
   }, [hasMore, loading]);
 
-  return { repositories, loading, error, loadMore, hasMore, totalCount };
+  const prefetchSearch = useCallback((nextFilterState: FilterState) => {
+    void fetchSearchResponse(buildSearchParams(nextFilterState, 1)).catch(() => {
+      // Ignore prefetch errors and fall back to the normal click path.
+    });
+  }, []);
+
+  return { repositories, loading, error, loadMore, hasMore, totalCount, prefetchSearch };
 };
