@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "snapshots:inspect": "node scripts/inspect-trending-snapshots.mjs",
     "snapshots:update": "node scripts/update-trending-snapshots.mjs",
-    "test:trending": "node --test tests/github-trending.test.mjs tests/trending-service.test.mjs tests/trending-logic.test.mjs tests/trending-api.test.mjs tests/trending-collector.test.mjs"
+    "test:trending": "node --test tests/github-trending.test.mjs tests/trending-service.test.mjs tests/trending-logic.test.mjs tests/trending-api.test.mjs tests/trending-collector.test.mjs tests/trending-snapshot-store.test.mjs"
   },
   "dependencies": {
     "@react-aria/ssr": "^3.9.7",

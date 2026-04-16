@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "partitioning": "monthly",
+  "partitions": [
+    "2026-03",
+    "2026-04"
+  ],
+  "snapshotCount": 2684,
+  "updatedAt": "2026-04-16T05:31:02.410Z"
+}
