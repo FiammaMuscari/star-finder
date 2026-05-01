@@ -478,7 +478,8 @@ export async function collectTrendingSnapshots({
   const canonicalNewSnapshots = canonicalizeSnapshotsByRepoName(newSnapshots, repoAliases);
   const mergedSnapshots = pruneSnapshots(
     mergeSnapshots(canonicalSnapshots, canonicalNewSnapshots),
-    snapshotRetentionDays
+    snapshotRetentionDays,
+    now
   );
 
   return {

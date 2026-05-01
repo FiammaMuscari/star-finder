@@ -51,7 +51,8 @@ export function mergeSnapshots(
 
 export function pruneSnapshots(
   snapshots: RepoStarSnapshot[],
-  daysToKeep?: number
+  daysToKeep?: number,
+  referenceDate?: Date | string | number
 ): RepoStarSnapshot[];
 
 export function getTrackedRepoNames(

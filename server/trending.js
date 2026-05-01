@@ -63,8 +63,8 @@ export function mergeSnapshots(existingSnapshots, incomingSnapshots) {
   });
 }
 
-export function pruneSnapshots(snapshots, daysToKeep = 90) {
-  const cutoff = Date.now() - daysToKeep * 86400000;
+export function pruneSnapshots(snapshots, daysToKeep = 90, referenceDate = new Date()) {
+  const cutoff = new Date(referenceDate).getTime() - daysToKeep * 86400000;
 
   return snapshots.filter((snapshot) => {
     return new Date(snapshot.captured_at).getTime() >= cutoff;
