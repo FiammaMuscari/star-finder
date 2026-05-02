@@ -3,8 +3,9 @@
   "partitioning": "monthly",
   "partitions": [
     "2026-03",
-    "2026-04"
+    "2026-04",
+    "2026-05"
   ],
-  "snapshotCount": 2684,
-  "updatedAt": "2026-04-16T05:31:02.410Z"
+  "snapshotCount": 2824,
+  "updatedAt": "2026-05-02T05:45:06.150Z"
 }
