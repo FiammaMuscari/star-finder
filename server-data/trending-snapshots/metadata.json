@@ -2,11 +2,10 @@
   "version": 1,
   "partitioning": "monthly",
   "partitions": [
-    "2026-05",
     "2026-06",
     "2026-07",
     "2026-08"
   ],
   "snapshotCount": 12560,
-  "updatedAt": "2026-08-28T15:24:40.659Z"
+  "updatedAt": "2026-08-29T10:07:05.245Z"
 }
