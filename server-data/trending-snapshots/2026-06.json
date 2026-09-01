@@ -7,12 +7,6 @@
       "language": null
     },
     {
-      "repo_full_name": "0xMiden/protocol",
-      "stars": 123,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
       "repo_full_name": "1024pix/pix",
       "stars": 281,
       "captured_at": "2026-06-23T00:00:00.000Z",
@@ -373,12 +367,6 @@
       "language": "JavaScript"
     },
     {
-      "repo_full_name": "adfinis/ember-simple-auth-oidc",
-      "stars": 22,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
       "repo_full_name": "adobe/da-live",
       "stars": 32,
       "captured_at": "2026-06-26T00:00:00.000Z",
@@ -680,12 +668,6 @@
     },
     {
       "repo_full_name": "alchaincyf/nuwa-skill",
-      "stars": 22464,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "alchaincyf/nuwa-skill",
       "stars": 22619,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Python"
@@ -949,12 +931,6 @@
       "language": "C++"
     },
     {
-      "repo_full_name": "aliyun/alibabacloud-java-async-sdk",
-      "stars": 33,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
       "repo_full_name": "aliyun/alibabacloud-oss-go-sdk-v2",
       "stars": 65,
       "captured_at": "2026-06-30T00:00:00.000Z",
@@ -1163,12 +1139,6 @@
       "stars": 28710,
       "captured_at": "2026-06-23T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "anomalyco/opencode",
-      "stars": 169114,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "anomalyco/opencode",
@@ -1472,12 +1442,6 @@
     },
     {
       "repo_full_name": "apache/iotdb",
-      "stars": 6337,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
-      "repo_full_name": "apache/iotdb",
       "stars": 6356,
       "captured_at": "2026-06-24T00:00:00.000Z",
       "language": "Java"
@@ -1565,12 +1529,6 @@
       "stars": 9,
       "captured_at": "2026-06-09T00:00:00.000Z",
       "language": "Ruby"
-    },
-    {
-      "repo_full_name": "AprilNEA/OpenLogi",
-      "stars": 3415,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
     },
     {
       "repo_full_name": "AprilNEA/OpenLogi",
@@ -1784,12 +1742,6 @@
     },
     {
       "repo_full_name": "armin-reichert/pacman-javafx",
-      "stars": 120,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
-      "repo_full_name": "armin-reichert/pacman-javafx",
       "stars": 121,
       "captured_at": "2026-06-10T00:00:00.000Z",
       "language": "Java"
@@ -1853,12 +1805,6 @@
       "stars": 66,
       "captured_at": "2026-06-28T00:00:00.000Z",
       "language": "Java"
-    },
-    {
-      "repo_full_name": "asynkron/Asynkron.JsEngine",
-      "stars": 10,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
     },
     {
       "repo_full_name": "asynkron/Asynkron.JsEngine",
@@ -2119,18 +2065,6 @@
       "language": "Rust"
     },
     {
-      "repo_full_name": "b10cks/cms",
-      "stars": 13,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
-      "repo_full_name": "badhope/MindMirror",
-      "stars": 64,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
       "repo_full_name": "bahmutov/cypress-highlight",
       "stars": 22,
       "captured_at": "2026-06-30T00:00:00.000Z",
@@ -2363,12 +2297,6 @@
       "stars": 11,
       "captured_at": "2026-06-08T00:00:00.000Z",
       "language": "C++"
-    },
-    {
-      "repo_full_name": "BigPizzaV3/CodexPlusPlus",
-      "stars": 11858,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
     },
     {
       "repo_full_name": "BigPizzaV3/CodexPlusPlus",
@@ -2996,12 +2924,6 @@
     },
     {
       "repo_full_name": "chancetop-com/core-ai",
-      "stars": 13,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
-      "repo_full_name": "chancetop-com/core-ai",
       "stars": 16,
       "captured_at": "2026-06-29T00:00:00.000Z",
       "language": "Java"
@@ -3017,12 +2939,6 @@
       "stars": 14,
       "captured_at": "2026-06-28T00:00:00.000Z",
       "language": "PHP"
-    },
-    {
-      "repo_full_name": "chatwoot/chatwoot",
-      "stars": 29904,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
     },
     {
       "repo_full_name": "chatwoot/chatwoot",
@@ -3200,12 +3116,6 @@
     },
     {
       "repo_full_name": "chenhg5/cc-connect",
-      "stars": 11456,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
-      "repo_full_name": "chenhg5/cc-connect",
       "stars": 11558,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Go"
@@ -3367,12 +3277,6 @@
       "language": "Go"
     },
     {
-      "repo_full_name": "chenrui333/homebrew-tap",
-      "stars": 9,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
-    },
-    {
       "repo_full_name": "CherryHQ/cherry-studio",
       "stars": 47452,
       "captured_at": "2026-06-17T00:00:00.000Z",
@@ -3407,12 +3311,6 @@
       "stars": 26,
       "captured_at": "2026-06-15T00:00:00.000Z",
       "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "chromium/chromium",
-      "stars": 23862,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
     },
     {
       "repo_full_name": "chromium/chromium",
@@ -3616,12 +3514,6 @@
       "repo_full_name": "codaqui/institucional",
       "stars": 34,
       "captured_at": "2026-06-21T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "code-yeongyu/oh-my-openagent",
-      "stars": 60791,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "TypeScript"
     },
     {
@@ -3877,12 +3769,6 @@
       "language": "Rust"
     },
     {
-      "repo_full_name": "corvax-team/ss14-wl",
-      "stars": 14,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
-    },
-    {
       "repo_full_name": "cosmic-utils/cosmic-ext-applet-external-monitor-brightness",
       "stars": 31,
       "captured_at": "2026-06-04T00:00:00.000Z",
@@ -3893,12 +3779,6 @@
       "stars": 43,
       "captured_at": "2026-06-09T00:00:00.000Z",
       "language": "C++"
-    },
-    {
-      "repo_full_name": "CoWork-OS/CoWork-OS",
-      "stars": 339,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "CoWork-OS/CoWork-OS",
@@ -3947,12 +3827,6 @@
       "stars": 304,
       "captured_at": "2026-06-23T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "cozystack/blockstor",
-      "stars": 33,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
     },
     {
       "repo_full_name": "cozystack/cozystack",
@@ -4165,12 +4039,6 @@
       "language": "Java"
     },
     {
-      "repo_full_name": "cytomine/cytomine",
-      "stars": 18,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
       "repo_full_name": "d0ctorsec/LearnJavaMemshellFromZero-Recurrence",
       "stars": 92,
       "captured_at": "2026-06-15T00:00:00.000Z",
@@ -4217,18 +4085,6 @@
       "stars": 162,
       "captured_at": "2026-06-17T00:00:00.000Z",
       "language": "Python"
-    },
-    {
-      "repo_full_name": "dancinlab/hexa-lang",
-      "stars": 226,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "daniel3303/Equibles",
-      "stars": 139,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
     },
     {
       "repo_full_name": "danielcopper/decky-romm-sync",
@@ -4289,12 +4145,6 @@
       "stars": 42,
       "captured_at": "2026-06-25T00:00:00.000Z",
       "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "DataDog/datadog-api-client-ruby",
-      "stars": 44,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
     },
     {
       "repo_full_name": "DataDog/datadog-api-client-ruby",
@@ -4591,12 +4441,6 @@
       "language": "Go"
     },
     {
-      "repo_full_name": "devcode-it/openstamanager",
-      "stars": 140,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
       "repo_full_name": "developermods/RustAim-Assist-Software",
       "stars": 48,
       "captured_at": "2026-06-17T00:00:00.000Z",
@@ -4666,12 +4510,6 @@
       "repo_full_name": "DFE-Digital/publish-teacher-training",
       "stars": 11,
       "captured_at": "2026-06-22T00:00:00.000Z",
-      "language": "Ruby"
-    },
-    {
-      "repo_full_name": "DFE-Digital/register-trainee-teachers",
-      "stars": 11,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "Ruby"
     },
     {
@@ -5156,12 +4994,6 @@
     },
     {
       "repo_full_name": "donnemartin/system-design-primer",
-      "stars": 351546,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "donnemartin/system-design-primer",
       "stars": 351676,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Python"
@@ -5323,12 +5155,6 @@
       "language": "Python"
     },
     {
-      "repo_full_name": "DontFuckMyCode/dfmc",
-      "stars": 17,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
       "repo_full_name": "dontpanic92/OpenPAL3",
       "stars": 578,
       "captured_at": "2026-06-14T00:00:00.000Z",
@@ -5483,12 +5309,6 @@
       "stars": 23,
       "captured_at": "2026-06-20T00:00:00.000Z",
       "language": "PHP"
-    },
-    {
-      "repo_full_name": "droid-f/fedlex",
-      "stars": 22,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": null
     },
     {
       "repo_full_name": "drvoss/everything-copilot-cli",
@@ -5657,12 +5477,6 @@
       "stars": 9,
       "captured_at": "2026-06-20T00:00:00.000Z",
       "language": "C#"
-    },
-    {
-      "repo_full_name": "Egonex-AI/Understand-Anything",
-      "stars": 50585,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "Egonex-AI/Understand-Anything",
@@ -5965,12 +5779,6 @@
       "language": "C++"
     },
     {
-      "repo_full_name": "enioka-Haute-Couture/jqm",
-      "stars": 103,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
       "repo_full_name": "EphemeralSpace/ephemeral-space",
       "stars": 22,
       "captured_at": "2026-06-29T00:00:00.000Z",
@@ -5981,12 +5789,6 @@
       "stars": 201,
       "captured_at": "2026-06-29T00:00:00.000Z",
       "language": "Go"
-    },
-    {
-      "repo_full_name": "Eppie-io/Eppie-App",
-      "stars": 384,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
     },
     {
       "repo_full_name": "equinor/ert",
@@ -6136,12 +5938,6 @@
       "repo_full_name": "extenda/actions",
       "stars": 33,
       "captured_at": "2026-06-10T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "eze-is/web-access",
-      "stars": 7072,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "JavaScript"
     },
     {
@@ -6320,12 +6116,6 @@
     },
     {
       "repo_full_name": "facebookresearch/vggt-omega",
-      "stars": 2372,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "facebookresearch/vggt-omega",
       "stars": 2435,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Python"
@@ -6391,12 +6181,6 @@
       "language": "Rust"
     },
     {
-      "repo_full_name": "falcosecurity/falco-operator",
-      "stars": 36,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
       "repo_full_name": "falcosecurity/plugins",
       "stars": 117,
       "captured_at": "2026-06-30T00:00:00.000Z",
@@ -6443,12 +6227,6 @@
       "stars": 18,
       "captured_at": "2026-06-21T00:00:00.000Z",
       "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "fathah/hermes-desktop",
-      "stars": 9661,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "fathah/hermes-desktop",
@@ -6698,12 +6476,6 @@
     },
     {
       "repo_full_name": "firstcontributions/first-contributions",
-      "stars": 54304,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": null
-    },
-    {
-      "repo_full_name": "firstcontributions/first-contributions",
       "stars": 54584,
       "captured_at": "2026-06-21T00:00:00.000Z",
       "language": null
@@ -6799,34 +6571,16 @@
       "language": "Go"
     },
     {
-      "repo_full_name": "flightctl/flightctl-ui",
-      "stars": 28,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
       "repo_full_name": "Floof-Station/Panta-Rhei",
       "stars": 16,
       "captured_at": "2026-06-22T00:00:00.000Z",
       "language": "C#"
     },
     {
-      "repo_full_name": "flowd/phirewall",
-      "stars": 16,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
       "repo_full_name": "flowershow/flowershow",
       "stars": 1082,
       "captured_at": "2026-06-09T00:00:00.000Z",
       "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "fluent/fluent-plugin-mongo",
-      "stars": 174,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
     },
     {
       "repo_full_name": "fluent/fluentd",
@@ -6920,12 +6674,6 @@
     },
     {
       "repo_full_name": "FOSSBilling/FOSSBilling",
-      "stars": 1579,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
-      "repo_full_name": "FOSSBilling/FOSSBilling",
       "stars": 1580,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "PHP"
@@ -6941,12 +6689,6 @@
       "stars": 1615,
       "captured_at": "2026-06-29T00:00:00.000Z",
       "language": "PHP"
-    },
-    {
-      "repo_full_name": "FoundZiGu/GuJumpgate",
-      "stars": 3309,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
     },
     {
       "repo_full_name": "FoundZiGu/GuJumpgate",
@@ -7085,12 +6827,6 @@
       "stars": 1740,
       "captured_at": "2026-06-15T00:00:00.000Z",
       "language": "Java"
-    },
-    {
-      "repo_full_name": "freestylefly/awesome-gpt-image-2",
-      "stars": 6935,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
     },
     {
       "repo_full_name": "freestylefly/awesome-gpt-image-2",
@@ -7251,12 +6987,6 @@
     {
       "repo_full_name": "friflo/Friflo.Vectorization",
       "stars": 14,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
-    },
-    {
-      "repo_full_name": "friflo/Friflo.Vectorization",
-      "stars": 14,
       "captured_at": "2026-06-05T00:00:00.000Z",
       "language": "C#"
     },
@@ -7295,12 +7025,6 @@
       "stars": 53,
       "captured_at": "2026-06-23T00:00:00.000Z",
       "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "FULU-Foundation/OrcaSlicer-bambulab",
-      "stars": 6748,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
     },
     {
       "repo_full_name": "FULU-Foundation/OrcaSlicer-bambulab",
@@ -7445,12 +7169,6 @@
       "stars": 4477,
       "captured_at": "2026-06-19T00:00:00.000Z",
       "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "garrytan/gstack",
-      "stars": 106503,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "garrytan/gstack",
@@ -7675,12 +7393,6 @@
       "language": "Rust"
     },
     {
-      "repo_full_name": "GeneralLibrary/GeneralUpdate-Samples",
-      "stars": 29,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
-    },
-    {
       "repo_full_name": "generic-daw/generic-daw",
       "stars": 116,
       "captured_at": "2026-06-08T00:00:00.000Z",
@@ -7691,12 +7403,6 @@
       "stars": 21,
       "captured_at": "2026-06-20T00:00:00.000Z",
       "language": "Java"
-    },
-    {
-      "repo_full_name": "Gentleman-Programming/gentle-ai",
-      "stars": 3579,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
     },
     {
       "repo_full_name": "Gentleman-Programming/gentle-ai",
@@ -7861,22 +7567,10 @@
       "language": "Ruby"
     },
     {
-      "repo_full_name": "getlago/lago-api",
-      "stars": 423,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
-    },
-    {
       "repo_full_name": "getnamingo/registrar",
       "stars": 59,
       "captured_at": "2026-06-17T00:00:00.000Z",
       "language": "PHP"
-    },
-    {
-      "repo_full_name": "getnora-io/nora",
-      "stars": 187,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
     },
     {
       "repo_full_name": "getplumber/plumber",
@@ -8011,12 +7705,6 @@
       "language": "TypeScript"
     },
     {
-      "repo_full_name": "gip-inclusion/rdv-insertion",
-      "stars": 13,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
-    },
-    {
       "repo_full_name": "git-ecosystem/git-credential-manager",
       "stars": 9033,
       "captured_at": "2026-06-28T00:00:00.000Z",
@@ -8057,12 +7745,6 @@
       "stars": 49,
       "captured_at": "2026-06-26T00:00:00.000Z",
       "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "Gloridust/WechatOnCloud",
-      "stars": 1740,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "Gloridust/WechatOnCloud",
@@ -8125,12 +7807,6 @@
       "language": "Vala"
     },
     {
-      "repo_full_name": "gnosis/gnosis_vpn-client",
-      "stars": 24,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
       "repo_full_name": "go-gost/relay",
       "stars": 11,
       "captured_at": "2026-06-21T00:00:00.000Z",
@@ -8177,12 +7853,6 @@
       "stars": 55,
       "captured_at": "2026-06-23T00:00:00.000Z",
       "language": "Go"
-    },
-    {
-      "repo_full_name": "google-ai-edge/LiteRT-LM",
-      "stars": 5309,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
     },
     {
       "repo_full_name": "google-ai-edge/LiteRT-LM",
@@ -8327,12 +7997,6 @@
       "stars": 364,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "googleworkspace/cli",
-      "stars": 26792,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
     },
     {
       "repo_full_name": "googleworkspace/cli",
@@ -8533,18 +8197,6 @@
       "language": "Java"
     },
     {
-      "repo_full_name": "grafana/grafana-llm-app",
-      "stars": 126,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "grafana/mimir",
-      "stars": 5116,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
       "repo_full_name": "grafana/mimir",
       "stars": 5134,
       "captured_at": "2026-06-24T00:00:00.000Z",
@@ -8591,12 +8243,6 @@
       "stars": 290,
       "captured_at": "2026-06-25T00:00:00.000Z",
       "language": "C#"
-    },
-    {
-      "repo_full_name": "gravitational/teleport",
-      "stars": 20444,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
     },
     {
       "repo_full_name": "gravitee-io/gravitee-access-management",
@@ -8659,12 +8305,6 @@
       "language": "Java"
     },
     {
-      "repo_full_name": "guanguans/music-dl",
-      "stars": 745,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
       "repo_full_name": "gudbrandtandberg/ChessVision-3LC",
       "stars": 21,
       "captured_at": "2026-06-09T00:00:00.000Z",
@@ -8687,12 +8327,6 @@
       "stars": 271,
       "captured_at": "2026-06-09T00:00:00.000Z",
       "language": "C++"
-    },
-    {
-      "repo_full_name": "h4ckf0r0day/obscura",
-      "stars": 14089,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
     },
     {
       "repo_full_name": "hack-ink/ELF",
@@ -8782,12 +8416,6 @@
       "repo_full_name": "hello-world-1989/cn-news",
       "stars": 458,
       "captured_at": "2026-06-21T00:00:00.000Z",
-      "language": null
-    },
-    {
-      "repo_full_name": "helloianneo/ian-xiaohei-illustrations",
-      "stars": 1788,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": null
     },
     {
@@ -8945,12 +8573,6 @@
       "stars": 38,
       "captured_at": "2026-06-16T00:00:00.000Z",
       "language": "Go"
-    },
-    {
-      "repo_full_name": "HKUDS/CLI-Anything",
-      "stars": 41877,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
     },
     {
       "repo_full_name": "HKUDS/CLI-Anything",
@@ -9409,12 +9031,6 @@
       "language": "C#"
     },
     {
-      "repo_full_name": "ICTU/quality-time",
-      "stars": 67,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
       "repo_full_name": "ideas-lab-nus/epwshiftr",
       "stars": 42,
       "captured_at": "2026-06-26T00:00:00.000Z",
@@ -9508,12 +9124,6 @@
       "repo_full_name": "im-anishraj/arnio",
       "stars": 90,
       "captured_at": "2026-06-10T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "Imbad0202/academic-research-skills",
-      "stars": 26440,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "Python"
     },
     {
@@ -9716,12 +9326,6 @@
     },
     {
       "repo_full_name": "indmdev/Free-Telegram-Store-Bot",
-      "stars": 115,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "indmdev/Free-Telegram-Store-Bot",
       "stars": 117,
       "captured_at": "2026-06-12T00:00:00.000Z",
       "language": "Python"
@@ -9887,12 +9491,6 @@
       "stars": 42,
       "captured_at": "2026-06-28T00:00:00.000Z",
       "language": "C++"
-    },
-    {
-      "repo_full_name": "iOfficeAI/OfficeCLI",
-      "stars": 5606,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
     },
     {
       "repo_full_name": "iOfficeAI/OfficeCLI",
@@ -10193,12 +9791,6 @@
       "stars": 89,
       "captured_at": "2026-06-28T00:00:00.000Z",
       "language": "Java"
-    },
-    {
-      "repo_full_name": "jackwener/OpenCLI",
-      "stars": 23375,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
     },
     {
       "repo_full_name": "jackwener/OpenCLI",
@@ -10669,12 +10261,6 @@
       "language": "TypeScript"
     },
     {
-      "repo_full_name": "JKorf/CryptoClients.Net",
-      "stars": 41,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
-    },
-    {
       "repo_full_name": "JM2K69/SMAD-X",
       "stars": 40,
       "captured_at": "2026-06-22T00:00:00.000Z",
@@ -10895,12 +10481,6 @@
       "stars": 423,
       "captured_at": "2026-06-30T00:00:00.000Z",
       "language": "C++"
-    },
-    {
-      "repo_full_name": "JuliusBrussee/caveman",
-      "stars": 68078,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
     },
     {
       "repo_full_name": "JuliusBrussee/caveman",
@@ -11180,12 +10760,6 @@
     },
     {
       "repo_full_name": "karpathy/autoresearch",
-      "stars": 84831,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "karpathy/autoresearch",
       "stars": 85016,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Python"
@@ -11455,12 +11029,6 @@
       "language": "Java"
     },
     {
-      "repo_full_name": "kfrlib/kfr",
-      "stars": 1877,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
-    },
-    {
       "repo_full_name": "KhronosGroup/VulkanSC-Tools",
       "stars": 9,
       "captured_at": "2026-06-19T00:00:00.000Z",
@@ -11537,12 +11105,6 @@
       "stars": 23,
       "captured_at": "2026-06-15T00:00:00.000Z",
       "language": "Ruby"
-    },
-    {
-      "repo_full_name": "Kong/insomnia",
-      "stars": 38466,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "kortix-ai/suna",
@@ -11705,12 +11267,6 @@
       "stars": 28666,
       "captured_at": "2026-06-27T00:00:00.000Z",
       "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "LadybirdBrowser/ladybird",
-      "stars": 63681,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
     },
     {
       "repo_full_name": "LadybirdBrowser/ladybird",
@@ -11948,12 +11504,6 @@
     },
     {
       "repo_full_name": "larksuite/cli",
-      "stars": 13349,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
-      "repo_full_name": "larksuite/cli",
       "stars": 13421,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Go"
@@ -12124,12 +11674,6 @@
       "repo_full_name": "laurent22/joplin",
       "stars": 55266,
       "captured_at": "2026-06-18T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "laverdet/xxscreeps",
-      "stars": 88,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "TypeScript"
     },
     {
@@ -12427,12 +11971,6 @@
       "language": "JavaScript"
     },
     {
-      "repo_full_name": "lobehub/lobehub",
-      "stars": 78122,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
       "repo_full_name": "lolochristen/OpenLayers.Blazor",
       "stars": 64,
       "captured_at": "2026-06-30T00:00:00.000Z",
@@ -12535,12 +12073,6 @@
       "language": "C++"
     },
     {
-      "repo_full_name": "lylo/pagecord",
-      "stars": 173,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
-    },
-    {
       "repo_full_name": "Lynnouo/yushio",
       "stars": 216,
       "captured_at": "2026-06-10T00:00:00.000Z",
@@ -12635,12 +12167,6 @@
       "stars": 11,
       "captured_at": "2026-06-06T00:00:00.000Z",
       "language": "C#"
-    },
-    {
-      "repo_full_name": "manaflow-ai/cmux",
-      "stars": 20820,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Swift"
     },
     {
       "repo_full_name": "manankharwar/fusioncore",
@@ -12781,12 +12307,6 @@
       "language": "Rust"
     },
     {
-      "repo_full_name": "matomo-org/plugin-QueuedTracking",
-      "stars": 83,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
       "repo_full_name": "mattermost/docs",
       "stars": 229,
       "captured_at": "2026-06-26T00:00:00.000Z",
@@ -12821,12 +12341,6 @@
       "stars": 1648,
       "captured_at": "2026-06-26T00:00:00.000Z",
       "language": "Ruby"
-    },
-    {
-      "repo_full_name": "mauricegift/free-proxies",
-      "stars": 21,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "HTML"
     },
     {
       "repo_full_name": "mauricegift/free-proxies",
@@ -12927,12 +12441,6 @@
     {
       "repo_full_name": "MerginMaps/mobile",
       "stars": 377,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
-    },
-    {
-      "repo_full_name": "MerginMaps/mobile",
-      "stars": 377,
       "captured_at": "2026-06-08T00:00:00.000Z",
       "language": "C++"
     },
@@ -12991,34 +12499,16 @@
       "language": "C++"
     },
     {
-      "repo_full_name": "metasfresh/metasfresh",
-      "stars": 2341,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
       "repo_full_name": "metio/ilo",
       "stars": 19,
       "captured_at": "2026-06-05T00:00:00.000Z",
       "language": "Java"
     },
     {
-      "repo_full_name": "MetrolistGroup/Metrolist",
-      "stars": 9868,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Kotlin"
-    },
-    {
       "repo_full_name": "mezleca/osu-stuff",
       "stars": 11,
       "captured_at": "2026-06-26T00:00:00.000Z",
       "language": "C++"
-    },
-    {
-      "repo_full_name": "MIC-DKFZ/napari-nninteractive",
-      "stars": 117,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
     },
     {
       "repo_full_name": "microg/GmsCore",
@@ -13225,22 +12715,10 @@
       "language": "JavaScript"
     },
     {
-      "repo_full_name": "milvus-io/milvus-sdk-java",
-      "stars": 487,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
-    },
-    {
       "repo_full_name": "mingjia1/dbops",
       "stars": 28,
       "captured_at": "2026-06-20T00:00:00.000Z",
       "language": "Go"
-    },
-    {
-      "repo_full_name": "MiniMax-AI/skills",
-      "stars": 12337,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
     },
     {
       "repo_full_name": "MiniMax-AI/skills",
@@ -13541,12 +13019,6 @@
       "stars": 11,
       "captured_at": "2026-06-21T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "MrNeRF/LichtFeld-Studio",
-      "stars": 3156,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
     },
     {
       "repo_full_name": "MRPT/mrpt",
@@ -14012,12 +13484,6 @@
     },
     {
       "repo_full_name": "nexu-io/open-design",
-      "stars": 57837,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "nexu-io/open-design",
       "stars": 58369,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "TypeScript"
@@ -14432,12 +13898,6 @@
     },
     {
       "repo_full_name": "NousResearch/hermes-agent",
-      "stars": 177993,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "NousResearch/hermes-agent",
       "stars": 179790,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Python"
@@ -14750,12 +14210,6 @@
     },
     {
       "repo_full_name": "odysseus-dev/odysseus",
-      "stars": 36326,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "odysseus-dev/odysseus",
       "stars": 46237,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "JavaScript"
@@ -15031,12 +14485,6 @@
       "language": "Python"
     },
     {
-      "repo_full_name": "onehoon/OptiClick",
-      "stars": 49,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C#"
-    },
-    {
       "repo_full_name": "onnxruntime/onnxruntime-qnn",
       "stars": 32,
       "captured_at": "2026-06-25T00:00:00.000Z",
@@ -15047,12 +14495,6 @@
       "stars": 12,
       "captured_at": "2026-06-17T00:00:00.000Z",
       "language": "PHP"
-    },
-    {
-      "repo_full_name": "op7418/guizang-social-card-skill",
-      "stars": 2661,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "HTML"
     },
     {
       "repo_full_name": "op7418/guizang-social-card-skill",
@@ -15100,12 +14542,6 @@
       "repo_full_name": "open-condo-software/condo",
       "stars": 359,
       "captured_at": "2026-06-18T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "open-gsd/gsd-core",
-      "stars": 2414,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "JavaScript"
     },
     {
@@ -15326,12 +14762,6 @@
     },
     {
       "repo_full_name": "openai/codex",
-      "stars": 88150,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
-      "repo_full_name": "openai/codex",
       "stars": 88464,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Rust"
@@ -15491,12 +14921,6 @@
       "stars": 94533,
       "captured_at": "2026-06-30T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "openai/codex-plugin-cc",
-      "stars": 20178,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
     },
     {
       "repo_full_name": "openai/codex-plugin-cc",
@@ -15662,12 +15086,6 @@
     },
     {
       "repo_full_name": "OpenBMB/PilotDeck",
-      "stars": 2871,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "OpenBMB/PilotDeck",
       "stars": 2931,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "TypeScript"
@@ -15695,12 +15113,6 @@
       "stars": 40,
       "captured_at": "2026-06-13T00:00:00.000Z",
       "language": "Ruby"
-    },
-    {
-      "repo_full_name": "openclaw/openclaw",
-      "stars": 376398,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "openclaw/openclaw",
@@ -16310,12 +15722,6 @@
     },
     {
       "repo_full_name": "paperclipai/paperclip",
-      "stars": 68858,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
-      "repo_full_name": "paperclipai/paperclip",
       "stars": 69001,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "TypeScript"
@@ -16472,12 +15878,6 @@
     },
     {
       "repo_full_name": "perplexityai/bumblebee",
-      "stars": 4190,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
-      "repo_full_name": "perplexityai/bumblebee",
       "stars": 4237,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Go"
@@ -16567,12 +15967,6 @@
       "language": "Go"
     },
     {
-      "repo_full_name": "PerryTS/perry",
-      "stars": 3585,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
       "repo_full_name": "peterhaneve/ONIMods",
       "stars": 467,
       "captured_at": "2026-06-10T00:00:00.000Z",
@@ -16592,12 +15986,6 @@
     },
     {
       "repo_full_name": "phase-rs/phase",
-      "stars": 120,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
-      "repo_full_name": "phase-rs/phase",
       "stars": 129,
       "captured_at": "2026-06-08T00:00:00.000Z",
       "language": "Rust"
@@ -16607,12 +15995,6 @@
       "stars": 133,
       "captured_at": "2026-06-14T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "phax/phoss-ap",
-      "stars": 31,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
     },
     {
       "repo_full_name": "philipallfrey/teihub",
@@ -17175,20 +16557,8 @@
     {
       "repo_full_name": "pubannotation/pubannotation",
       "stars": 33,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
-    },
-    {
-      "repo_full_name": "pubannotation/pubannotation",
-      "stars": 33,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Ruby"
-    },
-    {
-      "repo_full_name": "public-apis/public-apis",
-      "stars": 438977,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
     },
     {
       "repo_full_name": "public-apis/public-apis",
@@ -18410,12 +17780,6 @@
     },
     {
       "repo_full_name": "santifer/career-ops",
-      "stars": 48445,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "santifer/career-ops",
       "stars": 48588,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "JavaScript"
@@ -18709,18 +18073,6 @@
       "language": "Java"
     },
     {
-      "repo_full_name": "scribeocr/scribe.js",
-      "stars": 291,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "Scriptez1/RedXFreeSteamInstaller",
-      "stars": 887,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": null
-    },
-    {
       "repo_full_name": "Scriptez1/RedXFreeSteamInstaller",
       "stars": 1076,
       "captured_at": "2026-06-20T00:00:00.000Z",
@@ -18833,12 +18185,6 @@
       "stars": 43,
       "captured_at": "2026-06-22T00:00:00.000Z",
       "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "SeroSkiid/SeroC2",
-      "stars": 53,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
     },
     {
       "repo_full_name": "serverlessworkflow/sdk-typescript",
@@ -18997,12 +18343,6 @@
       "language": "Rust"
     },
     {
-      "repo_full_name": "shesha-io/shesha-framework",
-      "stars": 499,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
       "repo_full_name": "Shik3i/KoalaSync",
       "stars": 18,
       "captured_at": "2026-06-19T00:00:00.000Z",
@@ -19031,12 +18371,6 @@
       "stars": 3374,
       "captured_at": "2026-06-26T00:00:00.000Z",
       "language": "PHP"
-    },
-    {
-      "repo_full_name": "shoulders-ai/shoulders",
-      "stars": 31,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
     },
     {
       "repo_full_name": "shrinerb/shrine",
@@ -19079,12 +18413,6 @@
       "stars": 328,
       "captured_at": "2026-06-24T00:00:00.000Z",
       "language": "C++"
-    },
-    {
-      "repo_full_name": "simplifaisoul/osiris",
-      "stars": 4268,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
     },
     {
       "repo_full_name": "simplifaisoul/osiris",
@@ -19217,12 +18545,6 @@
       "stars": 22803,
       "captured_at": "2026-06-06T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "slopsmith/slopsmith",
-      "stars": 1163,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
     },
     {
       "repo_full_name": "slothflowlabs/duckle",
@@ -19483,12 +18805,6 @@
       "language": "C++"
     },
     {
-      "repo_full_name": "spectralDNS/shenfun",
-      "stars": 231,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
       "repo_full_name": "spiral/logger",
       "stars": 14,
       "captured_at": "2026-06-06T00:00:00.000Z",
@@ -19669,18 +18985,6 @@
       "language": "C#"
     },
     {
-      "repo_full_name": "Sudo-Ali-Dev/Rankistan",
-      "stars": 147,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "SukiSU-Ultra/SukiSU-Ultra",
-      "stars": 5523,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Kotlin"
-    },
-    {
       "repo_full_name": "sumup/sumup-dotnet",
       "stars": 9,
       "captured_at": "2026-06-15T00:00:00.000Z",
@@ -19775,12 +19079,6 @@
       "stars": 27,
       "captured_at": "2026-06-19T00:00:00.000Z",
       "language": "Python"
-    },
-    {
-      "repo_full_name": "swiyu-admin-ch/swiyu-verifier",
-      "stars": 19,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Java"
     },
     {
       "repo_full_name": "Sylius/SyliusGridBundle",
@@ -19999,12 +19297,6 @@
       "language": "PHP"
     },
     {
-      "repo_full_name": "tashfeenahmed/freellmapi",
-      "stars": 7236,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "TypeScript"
-    },
-    {
       "repo_full_name": "tatsumioga1/SmoothTube",
       "stars": 18,
       "captured_at": "2026-06-25T00:00:00.000Z",
@@ -20038,12 +19330,6 @@
       "repo_full_name": "tearoom1/kirby-ftp-backup",
       "stars": 13,
       "captured_at": "2026-06-08T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
-      "repo_full_name": "tempestphp/markdown",
-      "stars": 22,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "PHP"
     },
     {
@@ -20171,12 +19457,6 @@
       "stars": 12,
       "captured_at": "2026-06-15T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "thedoggybrad/easylist-mirror",
-      "stars": 13,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
     },
     {
       "repo_full_name": "thedoggybrad/easylist-mirror",
@@ -20425,21 +19705,9 @@
       "language": "Rust"
     },
     {
-      "repo_full_name": "tingly-dev/tingly-box",
-      "stars": 303,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
       "repo_full_name": "tinygrad/tinygrad",
       "stars": 32979,
       "captured_at": "2026-06-05T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "titanwings/colleague-skill",
-      "stars": 18899,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "Python"
     },
     {
@@ -20542,12 +19810,6 @@
       "repo_full_name": "TomoeMami/S1PlainTextBackup",
       "stars": 528,
       "captured_at": "2026-06-21T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "Tong89/smartNode",
-      "stars": 2010,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "Python"
     },
     {
@@ -20864,12 +20126,6 @@
     },
     {
       "repo_full_name": "ultraworkers/claw-code",
-      "stars": 193190,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
-      "repo_full_name": "ultraworkers/claw-code",
       "stars": 193234,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Rust"
@@ -21037,12 +20293,6 @@
       "language": "C#"
     },
     {
-      "repo_full_name": "umputun/ralphex",
-      "stars": 1212,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
       "repo_full_name": "un-pany/v3-admin-vite",
       "stars": 6964,
       "captured_at": "2026-06-07T00:00:00.000Z",
@@ -21139,12 +20389,6 @@
       "language": "Python"
     },
     {
-      "repo_full_name": "userFRM/egui-charts",
-      "stars": 21,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
       "repo_full_name": "userFRM/ThetaDataDx",
       "stars": 17,
       "captured_at": "2026-06-16T00:00:00.000Z",
@@ -21208,12 +20452,6 @@
       "repo_full_name": "vcmi/vcmi",
       "stars": 5684,
       "captured_at": "2026-06-10T00:00:00.000Z",
-      "language": "C++"
-    },
-    {
-      "repo_full_name": "vczh-libraries/Workflow",
-      "stars": 139,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "C++"
     },
     {
@@ -21413,12 +20651,6 @@
       "stars": 37628,
       "captured_at": "2026-06-08T00:00:00.000Z",
       "language": "V"
-    },
-    {
-      "repo_full_name": "vllm-project/vllm",
-      "stars": 81796,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
     },
     {
       "repo_full_name": "vllm-project/vllm",
@@ -21829,12 +21061,6 @@
       "language": "JavaScript"
     },
     {
-      "repo_full_name": "webmproject/CrabbyAvif",
-      "stars": 37,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Rust"
-    },
-    {
       "repo_full_name": "webprofusion/soundshed-guitar",
       "stars": 17,
       "captured_at": "2026-06-29T00:00:00.000Z",
@@ -21869,12 +21095,6 @@
       "stars": 12000,
       "captured_at": "2026-06-08T00:00:00.000Z",
       "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "Wei-Shaw/sub2api",
-      "stars": 25025,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
     },
     {
       "repo_full_name": "Wei-Shaw/sub2api",
@@ -22615,12 +21835,6 @@
       "language": "TypeScript"
     },
     {
-      "repo_full_name": "xibosignage/xibo-cms",
-      "stars": 494,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
-    },
-    {
       "repo_full_name": "XiNian-dada/NodeLite",
       "stars": 46,
       "captured_at": "2026-06-07T00:00:00.000Z",
@@ -22676,24 +21890,12 @@
     },
     {
       "repo_full_name": "xsrazy/Download-All-Tiktok-Videos",
-      "stars": 57,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "xsrazy/Download-All-Tiktok-Videos",
       "stars": 58,
       "captured_at": "2026-06-20T00:00:00.000Z",
       "language": "Python"
     },
     {
       "repo_full_name": "xsrazy/TikTok-Batch-Downloader",
-      "stars": 42,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "xsrazy/TikTok-Batch-Downloader",
       "stars": 45,
       "captured_at": "2026-06-18T00:00:00.000Z",
       "language": "JavaScript"
@@ -22713,12 +21915,6 @@
     {
       "repo_full_name": "xsrazy/Tiktok-Mass-Downloader",
       "stars": 31,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "xsrazy/Tiktok-Mass-Downloader",
-      "stars": 31,
       "captured_at": "2026-06-18T00:00:00.000Z",
       "language": "JavaScript"
     },
@@ -22733,12 +21929,6 @@
       "stars": 31,
       "captured_at": "2026-06-23T00:00:00.000Z",
       "language": "JavaScript"
-    },
-    {
-      "repo_full_name": "xtoolkit/TVC",
-      "stars": 11,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "PHP"
     },
     {
       "repo_full_name": "xtoolkit/TVC",
@@ -22844,12 +22034,6 @@
     },
     {
       "repo_full_name": "ydb-platform/ydb",
-      "stars": 4731,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
-    },
-    {
-      "repo_full_name": "ydb-platform/ydb",
       "stars": 4733,
       "captured_at": "2026-06-07T00:00:00.000Z",
       "language": "C++"
@@ -22904,12 +22088,6 @@
     },
     {
       "repo_full_name": "ytsaurus/ytsaurus",
-      "stars": 2193,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "C++"
-    },
-    {
-      "repo_full_name": "ytsaurus/ytsaurus",
       "stars": 2196,
       "captured_at": "2026-06-13T00:00:00.000Z",
       "language": "C++"
@@ -22954,12 +22132,6 @@
       "repo_full_name": "yuanxiawan/cfipv4db",
       "stars": 20,
       "captured_at": "2026-06-12T00:00:00.000Z",
-      "language": "Python"
-    },
-    {
-      "repo_full_name": "yunusemreyl/OmenCtl",
-      "stars": 104,
-      "captured_at": "2026-06-03T00:00:00.000Z",
       "language": "Python"
     },
     {
@@ -23102,12 +22274,6 @@
     },
     {
       "repo_full_name": "zakirullin/files.md",
-      "stars": 3246,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Go"
-    },
-    {
-      "repo_full_name": "zakirullin/files.md",
       "stars": 3277,
       "captured_at": "2026-06-04T00:00:00.000Z",
       "language": "Go"
@@ -23147,12 +22313,6 @@
       "stars": 25221,
       "captured_at": "2026-06-19T00:00:00.000Z",
       "language": "Rust"
-    },
-    {
-      "repo_full_name": "zammad/zammad",
-      "stars": 5655,
-      "captured_at": "2026-06-03T00:00:00.000Z",
-      "language": "Ruby"
     },
     {
       "repo_full_name": "zammad/zammad",
