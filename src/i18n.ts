@@ -48,10 +48,6 @@ const resources = {
       endOfResults: "You reached the end. The footer is right below.",
       repoDescriptionFallback:
         "This repository does not include a description yet.",
-      adPreview: "Ad preview",
-      adInfo:
-        "If this area stays empty in production, the most common causes are ad blockers, an unapproved domain, or AdSense not serving on localhost.",
-      sponsored: "Sponsored",
       poweredBy: "Powered by",
       notFoundTitle: "Page not found",
       notFoundDescription:
@@ -107,10 +103,6 @@ const resources = {
       endOfResults: "Llegaste al final. El footer esta justo abajo.",
       repoDescriptionFallback:
         "Este repositorio todavia no tiene descripcion.",
-      adPreview: "Vista previa del anuncio",
-      adInfo:
-        "Si este espacio sigue vacio en produccion, lo mas comun es un bloqueador, un dominio sin aprobar o que AdSense no sirva anuncios en localhost.",
-      sponsored: "Patrocinado",
       poweredBy: "Hecho por",
       notFoundTitle: "Pagina no encontrada",
       notFoundDescription:

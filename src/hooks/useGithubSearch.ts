@@ -4,6 +4,13 @@ import type { FilterState, Repository } from "../types";
 const PER_PAGE = 12;
 const DEFAULT_DISCOVERY_MIN_STARS = 10;
 const SEARCH_QUERY_MIN_STARS = 1;
+const TIME_RANGE_DAYS: Record<string, number> = {
+  "7d": 7,
+  "30d": 30,
+  "90d": 90,
+  "180d": 180,
+  "365d": 365,
+};
 
 type SearchResponse = {
   items?: Repository[];
@@ -26,16 +33,24 @@ function getDateFilter(filterState: FilterState) {
     return "created:>2008-04-04";
   }
 
-  const days = Number.parseInt(filterState.timeRange, 10);
-  const boundaryDate = new Date(Date.now() - days * 86400000).toISOString().split("T")[0];
+  const days = TIME_RANGE_DAYS[filterState.timeRange];
+
+  if (!days) {
+    return "";
+  }
+
+  const boundaryDate = new Date(Date.now() - days * 86400000)
+    .toISOString()
+    .split("T")[0];
 
   return `${filterState.filterMode === "created" ? "created" : "pushed"}:>${boundaryDate}`;
 }
 
 function buildSearchParams(filterState: FilterState, page: number) {
   const minimumStars = getMinimumStars(filterState);
+  const searchQuery = filterState.searchQuery.trim().replace(/\s+/g, " ");
   const queryParts = [
-    filterState.searchQuery.trim(),
+    searchQuery,
     filterState.language ? `language:${filterState.language}` : "",
     getDateFilter(filterState),
     `stars:>=${minimumStars}`,

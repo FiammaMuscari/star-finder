@@ -7,7 +7,6 @@ import { RepositoryList } from "./components/RepositoryList";
 import { BgEffect } from "./components/ParticlesBackground";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import { LanguageToggle } from "./components/LanguageToggle";
-import { AdBanner } from "./components/AdBanner";
 import { TrendingPreviewSection } from "./components/TrendingPreviewSection";
 import { useGithubSearch } from "./hooks/useGithubSearch";
 import { usePageMeta } from "./hooks/usePageMeta";
@@ -212,8 +211,6 @@ const App: React.FC = () => {
           {errorDisplay}
           <RepositoryList {...repositoryListProps} />
         </main>
-
-        <AdBanner />
 
         <footer className="relative z-10 py-6 text-center text-sm text-white/70">
           {t("poweredBy")}{" "}
