@@ -1,0 +1,10 @@
+{
+  "framework": "vite",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/trending.js": {
+      "includeFiles": ["server-data/trending-snapshots/**"]
+    }
+  }
+}
